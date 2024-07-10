@@ -8,9 +8,13 @@
 import UIKit
 import SnapKit
 
-class WeatherViewController: BaseViewController {
+final class WeatherViewController: BaseViewController {
     
-    let currentLocationLabel = {
+    private let scrollView = UIScrollView()
+    
+    private let contentView = UIView()
+    
+    private let currentLocationLabel = {
        let label = UILabel()
         label.text = "Jeju City"
         label.font = .systemFont(ofSize: 40)
@@ -19,7 +23,7 @@ class WeatherViewController: BaseViewController {
         return label
     }()
     
-    let currentTemperatureLabel = {
+    private let currentTemperatureLabel = {
        let label = UILabel()
         label.text = "5.9°"
         label.font = .systemFont(ofSize: 90)
@@ -28,7 +32,7 @@ class WeatherViewController: BaseViewController {
         return label
     }()
     
-    let weatherLabel = {
+    private let weatherLabel = {
        let label = UILabel()
         label.text = "Broken Clouds"
         label.font = .systemFont(ofSize: 22)
@@ -37,8 +41,7 @@ class WeatherViewController: BaseViewController {
         return label
     }()
     
-    
-    let temperatureLabel = {
+    private let temperatureLabel = {
        let label = UILabel()
         label.text = "최고: 7.0°  |  최저: -4.2°"
         label.font = .boldSystemFont(ofSize: 20)
@@ -47,14 +50,14 @@ class WeatherViewController: BaseViewController {
         return label
     }()
     
-    let hoursBackgroundView = {
+    private let hoursBackgroundView = {
         let view = UIView()
         view.backgroundColor = .white.withAlphaComponent(0.3)
         view.layer.cornerRadius = 10
         return view
     }()
     
-    let dayBackgroundView = {
+    private let dayBackgroundView = {
         let view = UIView()
         view.backgroundColor = .white.withAlphaComponent(0.3)
         view.layer.borderColor = UIColor.black.cgColor
@@ -62,8 +65,7 @@ class WeatherViewController: BaseViewController {
         return view
     }()
     
-    
-    let hoursLabel = {
+    private let hoursLabel = {
         let label = UILabel()
         label.text = "3시간 간격의 일기예보"
         label.textColor = .white
@@ -71,7 +73,7 @@ class WeatherViewController: BaseViewController {
         return label
     }()
     
-    let dayLabel = {
+    private let dayLabel = {
         let label = UILabel()
         label.text = "5일 간의 일기예보"
         label.textColor = .white
@@ -79,51 +81,65 @@ class WeatherViewController: BaseViewController {
         return label
     }()
     
+    private let weatherTableView = UITableView()
     
-    let weatherTableView = UITableView()
-    
-    let weatherCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private let weatherCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
     static private func layout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let spacing: CGFloat = 10
-        let inset: CGFloat = 4
-        let width = UIScreen.main.bounds.width - (spacing * 2) - (inset * 4)
+        let inset: CGFloat = 15
+        let numberOfItemsPerRow: CGFloat = 5 // 한 줄에 보여질 아이템 개수
+        let totalSpacing = (2 * inset) + ((numberOfItemsPerRow - 1) * spacing)
+        
+        let width = (UIScreen.main.bounds.width - totalSpacing) / numberOfItemsPerRow
         let height = UIScreen.main.bounds.height
         
         layout.itemSize = CGSize(width: width, height: height)
         layout.minimumLineSpacing = spacing
-        layout.minimumInteritemSpacing = 0
-        layout.sectionInset = UIEdgeInsets(top: inset, left: 20, bottom: inset, right: inset)
+        layout.minimumInteritemSpacing = inset
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.scrollDirection = .horizontal
+        
         return layout
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
+        scrollView.backgroundColor = .brown
+        contentView.backgroundColor = .red
     }
 
     override func configureHierarchy() {
-        view.addSubview(currentLocationLabel)
-        view.addSubview(currentTemperatureLabel)
-        view.addSubview(weatherLabel)
-        view.addSubview(temperatureLabel)
-        view.addSubview(hoursBackgroundView)
-        view.addSubview(hoursLabel)
-        view.addSubview(weatherCollectionView)
-        view.addSubview(dayBackgroundView)
-        view.addSubview(dayLabel)
-        view.addSubview(weatherTableView)
-        
-        weatherCollectionView.backgroundColor = .brown
-        weatherTableView.backgroundColor = .brown
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(currentLocationLabel)
+        contentView.addSubview(currentTemperatureLabel)
+        contentView.addSubview(weatherLabel)
+        contentView.addSubview(temperatureLabel)
+        contentView.addSubview(hoursBackgroundView)
+        contentView.addSubview(hoursLabel)
+        contentView.addSubview(weatherCollectionView)
+        contentView.addSubview(dayBackgroundView)
+        contentView.addSubview(dayLabel)
+        contentView.addSubview(weatherTableView)
     }
     
     override func configureLayout() {
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.width.height.equalTo(view)
+            make.top.bottom.equalTo(scrollView)
+            
+        }
+        
         currentLocationLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(contentView).offset(10)
+            make.centerX.equalTo(contentView)
         }
         
         currentTemperatureLabel.snp.makeConstraints { make in
@@ -138,12 +154,12 @@ class WeatherViewController: BaseViewController {
         
         temperatureLabel.snp.makeConstraints { make in
             make.top.equalTo(weatherLabel.snp.bottom).offset(5)
-            make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.centerX.equalTo(contentView)
         }
         
         hoursBackgroundView.snp.makeConstraints { make in
             make.top.equalTo(temperatureLabel.snp.bottom).offset(50)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.horizontalEdges.equalTo(contentView).inset(10)
             make.height.equalTo(view.snp.height).multipliedBy(0.25)
         }
         
@@ -158,9 +174,9 @@ class WeatherViewController: BaseViewController {
         
         dayBackgroundView.snp.makeConstraints { make in
             make.top.equalTo(hoursBackgroundView.snp.bottom).offset(10)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
-//            make.height.equalTo(view.snp.height).multipliedBy(0)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(contentView).inset(10)
+            make.height.equalTo(hoursBackgroundView.snp.height).multipliedBy(1.5)
+            
         }
         
         dayLabel.snp.makeConstraints { make in
@@ -176,6 +192,42 @@ class WeatherViewController: BaseViewController {
         
     }
     
+    override func configureView() {
+        weatherCollectionView.delegate = self
+        weatherCollectionView.dataSource = self
+        weatherCollectionView.register(WeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
+        
+        weatherTableView.delegate = self
+        weatherTableView.dataSource = self
+        weatherTableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
+        
+        weatherTableView.rowHeight = 50
+    }
 
 }
 
+extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCollectionViewCell.identifier, for: indexPath) as? WeatherCollectionViewCell else { fatalError("WeatherCollectionViewCell 다운캐스팅 실패") }
+        
+        return cell
+    }
+}
+
+extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
+        
+        return cell
+    }
+    
+    
+}
