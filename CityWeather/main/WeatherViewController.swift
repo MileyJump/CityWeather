@@ -109,6 +109,10 @@ final class WeatherViewController: BaseViewController {
         view.backgroundColor = .blue
         scrollView.backgroundColor = .brown
         contentView.backgroundColor = .red
+        
+//        WeatherManager.shared.callRequest(api: .forecase) { (success: WeatherModel?, error: String? in
+//            <#code#>
+//        }
     }
 
     override func configureHierarchy() {

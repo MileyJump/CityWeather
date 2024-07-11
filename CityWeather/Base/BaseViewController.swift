@@ -21,5 +21,4 @@ class BaseViewController: UIViewController {
     func configureLayout() { }
     
     func configureView() { }
-    
 }

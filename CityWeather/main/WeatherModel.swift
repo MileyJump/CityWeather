@@ -13,7 +13,6 @@ struct WeatherModel: Decodable {
     let cnt: Int
     let list: [List]
     let city: City
-    
 }
 
 struct List: Decodable {
@@ -69,7 +68,6 @@ struct Rain: Decodable {
 struct Sys: Decodable {
     let pop: String
 }
-                
                 
 struct City: Decodable {
     let id: Int
