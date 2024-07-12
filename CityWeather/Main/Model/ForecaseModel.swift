@@ -45,6 +45,14 @@ struct Weather: Decodable {
     let main: String
     let description: String
     let icon: String
+    
+    var iconExtraction: URL? {
+        guard let url = URL(string: "https://openweathermap.org/img/wn/\(icon)@2x.png") else {
+            return nil
+        }
+        return url
+        
+    }
 }
 
 struct Clouds: Decodable {

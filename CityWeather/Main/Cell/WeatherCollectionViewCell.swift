@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class WeatherCollectionViewCell: BaseCollectionViewCell {
     
@@ -19,8 +20,8 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
     }
     
     func configureCell(data: ForecaseList) {
-        let hourString = timeConversion(data.dt_txt)
-        timeLabel.text = hourString
+        timeLabel.text = timeConversion(data.dt_txt)
+        weatherImageView.kf.setImage(with: data.weather[0].iconExtraction)
         
     }
     
@@ -54,26 +55,27 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureLayout() {
-        timeLabel.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview().inset(5)
-            make.height.equalTo(20)
-//            make.bottom.equalToSuperview()
-            
-        }
-        
+//        timeLabel.snp.makeConstraints { make in
+//            make.top.horizontalEdges.equalToSuperview().inset(5)
+//            make.height.equalTo(20)
+////            make.bottom.equalToSuperview()
+//            
+//        }
+//        
 //
         weatherImageView.snp.makeConstraints { make in
-            make.top.equalTo(timeLabel.snp.bottom).offset(10)
-//            make.top.equalToSuperview()
-            make.height.equalTo(weatherImageView.snp.width)
+//            make.top.equalTo(timeLabel.snp.bottom).offset(10)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+//            make.height.equalTo(weatherImageView.snp.width)
             make.horizontalEdges.equalToSuperview()
         }
 //        
-        tempLabel.snp.makeConstraints { make in
-            make.top.equalTo(weatherImageView.snp.bottom).offset(10)
-            make.horizontalEdges.equalTo(timeLabel)
-            make.bottom.equalToSuperview()
-        }
+//        tempLabel.snp.makeConstraints { make in
+//            make.top.equalTo(weatherImageView.snp.bottom).offset(10)
+//            make.horizontalEdges.equalTo(timeLabel)
+//            make.bottom.equalToSuperview()
+//        }
     }
     
 }
