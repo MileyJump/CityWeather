@@ -40,17 +40,11 @@ final class WeatherViewController: BaseViewController {
     
     private let weatherTableView = UITableView()
     
-    
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
-
-        
     }
     
-
     override func configureHierarchy() {
         view.addSubview(currentLocationLabel)
         view.addSubview(currentTemperatureLabel)
@@ -88,9 +82,13 @@ final class WeatherViewController: BaseViewController {
         weatherTableView.delegate = self
         weatherTableView.dataSource = self
         weatherTableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
-        weatherTableView.register(CustomHeaderView.self, forHeaderFooterViewReuseIdentifier: CustomHeaderView.identifier)
+        weatherTableView.register(DailyIntervalTableViewCell.self, forCellReuseIdentifier: DailyIntervalTableViewCell.identifier)
         
-        weatherTableView.rowHeight = 100
+//        weatherTableView.register(CustomHeaderView.self, forHeaderFooterViewReuseIdentifier: CustomHeaderView.identifier)
+        
+//        weatherTableView.rowHeight = UITableView.automaticDimension
+        weatherTableView.rowHeight = 200
+        weatherTableView.estimatedRowHeight = 200
     }
     
     
@@ -115,37 +113,30 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
-        cell.collectionView.register(WeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
-        cell.collectionView.delegate = self
-        cell.collectionView.dataSource = self
         
-        let sectionType = SectionType.allCases[indexPath.row]
-        
-        cell.headerView.configureHeader(type: sectionType)
-        return cell
+        switch indexPath.row {
+        case 0 :
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
+            cell.collectionView.register(WeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
+            cell.collectionView.delegate = self
+            cell.collectionView.dataSource = self
+            
+            let sectionType = SectionType.allCases[indexPath.row]
+            
+            cell.headerView.configureHeader(type: sectionType)
+            return cell
+        case 1 :
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DailyIntervalTableViewCell.identifier, for: indexPath) as? DailyIntervalTableViewCell else { fatalError("DailyIntervalTableViewCell 다운캐스팅 실패") }
+
+            
+            let sectionType = SectionType.allCases[indexPath.row]
+            
+            cell.headerView.configureHeader(type: sectionType)
+            return cell
+        default:
+           guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
+            return cell
+        }
+       
     }
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CustomHeaderView.identifier) as? CustomHeaderView else {
-//            fatalError("CustomHeaderView 타입 캐스팅 실패")
-//        }
-//         switch section {
-//         case 0:
-//             header.configureHeader(title: SectionType.timeInterval.sectionTitle, imageName: SectionType.timeInterval.sectionImage)
-//         case 1:
-//             header.configureHeader(title: SectionType.dailyInterval.sectionTitle, imageName: SectionType.dailyInterval.sectionTitle)
-//         case 2:
-//             header.configureHeader(title: SectionType.location.sectionTitle, imageName: SectionType.location.sectionTitle)
-//         default:
-//             print("section default")
-//         }
-//         return header
-//     }
-//
-//     
-//     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//         return 25 // 헤더 높이
-//     }
-//    
 }

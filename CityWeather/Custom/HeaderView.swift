@@ -19,7 +19,6 @@ class HeaderView: BaseView {
        
     }
     
-    
     func configureHeader(type: SectionType) {
         titleLabel.text = type.sectionTitle
         iconImageViwe.image = UIImage(systemName: type.sectionImage)

@@ -58,21 +58,11 @@ class WeatherTableViewCell: BaseTableViewCell {
         headerView.snp.makeConstraints { make in
             make.horizontalEdges.top.equalTo(bgView).inset(10)
             make.height.equalTo(20)
+            make.top.equalTo(bgView).inset(4)
         }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(5)
             make.bottom.horizontalEdges.equalTo(bgView).inset(10)
         }
-    }
-    
-    
-    
-    override func configureView() {
-        
-        headerView.titleLabel.text = "3시간 간격의 일기예보"
-        
-        collectionView.backgroundColor = .blue
-//        headerView.backgroundColor = .blue
-        
     }
 }

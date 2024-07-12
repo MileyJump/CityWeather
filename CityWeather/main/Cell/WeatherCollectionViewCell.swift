@@ -31,23 +31,25 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
         weatherImageView.backgroundColor = .blue
         weatherImageView.backgroundColor = .systemMint
         
-        contentView.backgroundColor = .blue
+        contentView.backgroundColor = .yellow
     }
     
     override func configureLayout() {
         timeLabel.snp.makeConstraints { make in
-//            make.top.equalToSuperview()
-//            make.horizontalEdges.equalToSuperview()
             make.top.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(contentView.snp.bottom)
+//            make.height.equalTo(20)
+            make.bottom.equalToSuperview()
             
         }
-//        
-//        weatherImageView.snp.makeConstraints { make in
-//            make.top.equalTo(timeLabel.snp.bottom).offset(10)
-//            make.horizontalEdges.equalTo(timeLabel)
-//        }
         
+//
+        weatherImageView.snp.makeConstraints { make in
+//            make.top.equalTo(timeLabel.snp.bottom).offset(10)
+            make.top.equalToSuperview()
+            make.height.equalTo(weatherImageView.snp.width)
+            make.horizontalEdges.equalTo(timeLabel)
+        }
+//        
 //        tempLabel.snp.makeConstraints { make in
 //            make.top.equalTo(weatherImageView.snp.bottom).offset(10)
 //            make.horizontalEdges.equalTo(timeLabel)
