@@ -98,7 +98,12 @@ final class WeatherViewController: BaseViewController {
         viewModel.inputWeatherData.value = ()
         
         viewModel.outputCurrentData.bind { value in
-            self.currentLocationLabel.text = value?.name
+            guard let value = value else { return }
+            self.currentLocationLabel.text = value.name
+            self.currentTemperatureLabel.text = value.temperatureCelsius.temp
+            self.weatherLabel.text = "\(value.weather[0].description) \n 최고: \(value.temperatureCelsius.temp_max)  |  최저: \(value.temperatureCelsius.temp_min)"
+            
+            
         }
         
 //        viewModel.outputForecaseData.bind { value in

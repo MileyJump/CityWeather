@@ -21,6 +21,10 @@ struct CurrentWeatherModel: Decodable {
     let id: Int
     let name: String?
     let cod: Int
+    
+    var temperatureCelsius: TemperatureCelsius {
+        return TemperatureCelsius(main: main)
+    }
 }
 
 struct CurrentCoord: Decodable {
@@ -55,3 +59,14 @@ struct CurrentSys: Decodable {
     let country: String
 }
     
+
+// 섭씨 온도로 변환
+struct TemperatureCelsius {
+    var temp, temp_min, temp_max: String
+    
+    init(main: CurrentMain) {
+        self.temp = String(format: "%.1f", main.temp - 273.15) + "°"
+        self.temp_min = String(format: "%.1f", main.temp - 273.15) + "°"
+        self.temp_max = String(format: "%.1f", main.temp - 273.15) + "°"
+    }
+}
