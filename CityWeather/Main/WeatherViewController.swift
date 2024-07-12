@@ -120,7 +120,8 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCollectionViewCell.identifier, for: indexPath) as? WeatherCollectionViewCell else { fatalError("WeatherCollectionViewCell 다운캐스팅 실패") }
-        
+        guard let value = viewModel.outputForecaseData.value else { return cell }
+        cell.configureCell(data: value[indexPath.row])
         return cell
     }
 }

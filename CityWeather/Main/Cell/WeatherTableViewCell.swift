@@ -43,6 +43,10 @@ class WeatherTableViewCell: BaseTableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
+    func configureCell(data: List) {
+        
+    }
+    
     override func configureHierarchy() {
         contentView.addSubview(bgView)
         contentView.addSubview(collectionView)
