@@ -18,6 +18,11 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
         super.init(frame: frame)
     }
     
+    func configureCell(data: ForecaseList) {
+    
+        timeLabel.text = data.dt_txt
+    }
+    
     override func configureHierarchy() {
         contentView.addSubview(timeLabel)
         contentView.addSubview(weatherImageView)

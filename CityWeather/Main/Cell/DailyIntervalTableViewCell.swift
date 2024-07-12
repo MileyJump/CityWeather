@@ -25,8 +25,8 @@ final class DailyIntervalTableViewCell: BaseTableViewCell {
     
     override func configureHierarchy() {
         contentView.addSubview(bgView)
-        contentView.addSubview(headerView)
-        contentView.addSubview(dailyTableView)
+        bgView.addSubview(headerView)
+        bgView.addSubview(dailyTableView)
     }
     
     override func configureLayout() {
@@ -38,7 +38,7 @@ final class DailyIntervalTableViewCell: BaseTableViewCell {
             make.horizontalEdges.top.equalTo(bgView).inset(10)
             make.height.equalTo(20)
         }
-        
+     
         dailyTableView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(5)
             make.bottom.horizontalEdges.equalTo(bgView).inset(10)

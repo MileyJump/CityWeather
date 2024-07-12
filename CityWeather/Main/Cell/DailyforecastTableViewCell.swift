@@ -39,7 +39,7 @@ class DailyforecastTableViewCell: BaseTableViewCell {
         iconImageView.snp.makeConstraints { make in
             make.size.equalTo(30)
             make.leading.equalTo(dayLabel.snp.trailing).offset(50)
-            make.verticalEdges.equalTo(contentView).inset(5)
+            make.centerY.equalTo(contentView)
         }
         
         minimum.snp.makeConstraints { make in

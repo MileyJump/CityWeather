@@ -43,14 +43,12 @@ class WeatherTableViewCell: BaseTableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    func configureCell(data: List) {
-        
-    }
+  
     
     override func configureHierarchy() {
         contentView.addSubview(bgView)
-        contentView.addSubview(collectionView)
-        contentView.addSubview(headerView)
+        bgView.addSubview(collectionView)
+        bgView.addSubview(headerView)
      
     }
     
@@ -62,7 +60,6 @@ class WeatherTableViewCell: BaseTableViewCell {
         headerView.snp.makeConstraints { make in
             make.horizontalEdges.top.equalTo(bgView).inset(10)
             make.height.equalTo(20)
-            make.top.equalTo(bgView).inset(4)
         }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(5)

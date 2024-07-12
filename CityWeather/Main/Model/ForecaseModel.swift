@@ -11,11 +11,11 @@ struct ForecaseModel: Decodable {
     let cod: String
     let message: Int
     let cnt: Int
-    let list: [List]
+    let list: [ForecaseList]
     let city: City
 }
 
-struct List: Decodable {
+struct ForecaseList: Decodable {
     let dt: Int
     let main: Main
     let weather: [Weather]

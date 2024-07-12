@@ -11,7 +11,7 @@ final class WeatherViewModel {
     
     var inputWeatherData: Observable<Void?> = Observable(nil)
 
-    var outputForecaseData: Observable<[List]?> = Observable(nil)
+    var outputForecaseData: Observable<[ForecaseList]?> = Observable(nil)
     var outputCurrentData: Observable<CurrentWeatherModel?> = Observable(nil)
     
     
