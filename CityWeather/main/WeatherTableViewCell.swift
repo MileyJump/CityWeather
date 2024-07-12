@@ -9,57 +9,70 @@ import UIKit
 
 class WeatherTableViewCell: BaseTableViewCell {
     
-    private let timeLabel = UILabel()
-    private let weatherImageView = UIImageView()
-    private let lowestTempLabel = UILabel()
-    private let highestTempLabel = UILabel()
+    let bgView = {
+        let view = UIView()
+        view.backgroundColor = .black.withAlphaComponent(0.2)
+        view.layer.cornerRadius = 10
+        return view
+    }()
     
+    let headerView = HeaderView()
+    
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    
+    private func layout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        let spacing: CGFloat = 10
+        let inset: CGFloat = 15
+        let numberOfItemsPerRow: CGFloat = 5 // 한 줄에 보여질 아이템 개수
+        let totalSpacing = (2 * inset) + ((numberOfItemsPerRow) * spacing)
+        
+        let width = (UIScreen.main.bounds.width - totalSpacing) / numberOfItemsPerRow
+        let height = UIScreen.main.bounds.height
+        
+        layout.itemSize = CGSize(width: width, height: height)
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = inset
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.scrollDirection = .horizontal
+        
+        return layout
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
     override func configureHierarchy() {
-        contentView.addSubview(timeLabel)
-        contentView.addSubview(weatherImageView)
-        contentView.addSubview(lowestTempLabel)
-        contentView.addSubview(highestTempLabel)
+        contentView.addSubview(bgView)
+        contentView.addSubview(collectionView)
+        contentView.addSubview(headerView)
+     
     }
     
     override func configureLayout() {
-        timeLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(5)
-            make.verticalEdges.equalToSuperview()
-            make.width.equalTo(30)
+        bgView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView).inset(5)
         }
         
-        weatherImageView.snp.makeConstraints { make in
-            make.leading.equalTo(timeLabel.snp.trailing).offset(40)
-            make.verticalEdges.equalToSuperview()
-            make.width.equalTo(weatherImageView.snp.height)
+        headerView.snp.makeConstraints { make in
+            make.horizontalEdges.top.equalTo(bgView).inset(10)
+            make.height.equalTo(20)
         }
-        
-        lowestTempLabel.snp.makeConstraints { make in
-            make.leading.equalTo(weatherImageView.snp.trailing).offset(10)
-            make.verticalEdges.equalToSuperview()
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(5)
+            make.bottom.horizontalEdges.equalTo(bgView).inset(10)
         }
-        
-        highestTempLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(15)
-            make.verticalEdges.equalToSuperview()
-        }
-        
     }
+    
+    
     
     override func configureView() {
-        self.backgroundColor = .red
         
-        timeLabel.text = "오늘"
-        weatherImageView.backgroundColor = .brown
-        lowestTempLabel.text = "최저 -2"
-        highestTempLabel.text = "최고 9"
+        headerView.titleLabel.text = "3시간 간격의 일기예보"
+        
+        collectionView.backgroundColor = .blue
+//        headerView.backgroundColor = .blue
+        
     }
-    
-    
-    
 }

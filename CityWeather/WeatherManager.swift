@@ -14,14 +14,17 @@ final class WeatherManager {
     
     private init() { }
     
-    func callRequest<T: Decodable>(api: WeatherRequest, completionHandler: @escaping ([T]?, String?) -> Void) {
-        AF.request(api.endPoint, method: api.method, parameters: api.parameter, encoding: URLEncoding.queryString).validate(statusCode: 200..<500).responseDecodable(of: T.self) { response in
-            switch response.result {
-            case .success(let value):
-                print(value)
-            case .failure(let error):
-                print(error)
+    func callRequest<T: Decodable>(api: WeatherRequest, completionHandler: @escaping (T?, String?) -> Void) {
+        AF.request(api.endPoint, method: api.method, parameters: api.parameter, encoding: URLEncoding.queryString)
+            .validate(statusCode: 200..<500)
+            .responseDecodable(of: T.self) { response in
+                switch response.result {
+                case .success(let value):
+                    completionHandler(value, nil)
+                case .failure(let error):
+                    completionHandler(nil, error.localizedDescription)
+                }
             }
-        }
     }
 }
+
