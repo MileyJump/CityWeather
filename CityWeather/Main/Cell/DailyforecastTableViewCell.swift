@@ -66,7 +66,22 @@ class DailyforecastTableViewCell: BaseTableViewCell {
     }
     
     func configureCell(data: ForecaseList) {
-        dayLabel.text = data.dt_txt
+        dayLabel.text = dayConversion(data.dt_txt)
+    }
+    
+    func dayConversion(_ dateString: String) -> String {
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormat.locale = Locale(identifier: "ko_KR")
+        
+        if let date = dateFormat.date(from: dateString) {
+            dateFormat.dateFormat = "EEEE"
+            let dayOfWeek = dateFormat.string(from: date)
+            
+            return dayOfWeek
+        }else {
+            return "날짜 변환 실패"
+        }
     }
     
 }
