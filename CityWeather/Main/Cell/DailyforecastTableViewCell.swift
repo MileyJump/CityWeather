@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Kingfisher
+import SnapKit
 
 class DailyforecastTableViewCell: BaseTableViewCell {
     
@@ -20,15 +22,43 @@ class DailyforecastTableViewCell: BaseTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        backgroundColor = .red
     }
+    
     
     override func configureHierarchy() {
         contentView.addSubview(dayLabel)
         contentView.addSubview(iconImageView)
         contentView.addSubview(minimum)
         contentView.addSubview(maximum)
+    }
+    
+    
+    
+    func configureCell(data: ForecaseList) {
+        dayLabel.text = dayConversion(data.dt_txt)
+        // set을 통해 요일 중복 ... 제거하기 (maybe)
+        iconImageView.kf.setImage(with: data.weather[0].iconExtraction)
+        minimum.text = "최저 \(data.temperatureCelsius.temp_min)"
+        maximum.text = "최고 \(data.temperatureCelsius.temp_max)"
+    }
+    
+    func dayConversion(_ dateString: String) -> String {
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormat.locale = Locale(identifier: "ko_KR")
+        
+        if let date = dateFormat.date(from: dateString) {
+            dateFormat.dateFormat = "E"
+            let dayOfWeek = dateFormat.string(from: date)
+            
+            return dayOfWeek
+        }else {
+            return "날짜 변환 실패"
+        }
+    }
+    
+    override func configureView() {
+        backgroundColor = .clear
     }
     
     override func configureLayout() {
@@ -50,37 +80,6 @@ class DailyforecastTableViewCell: BaseTableViewCell {
         maximum.snp.makeConstraints { make in
             make.verticalEdges.equalTo(dayLabel)
             make.trailing.equalTo(contentView).inset(5)
-        }
-    }
-    
-    override func configureView() {
-        dayLabel.text = "오늘"
-        dayLabel.textColor = .white
-        iconImageView.image = UIImage(systemName: "star")
-        
-        minimum.text = "최저 -2도"
-        minimum.textColor = .white
-        
-        maximum.text = "최저 -2도"
-        maximum.textColor = .white
-    }
-    
-    func configureCell(data: ForecaseList) {
-        dayLabel.text = dayConversion(data.dt_txt)
-    }
-    
-    func dayConversion(_ dateString: String) -> String {
-        let dateFormat = DateFormatter()
-        dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        dateFormat.locale = Locale(identifier: "ko_KR")
-        
-        if let date = dateFormat.date(from: dateString) {
-            dateFormat.dateFormat = "EEEE"
-            let dayOfWeek = dateFormat.string(from: date)
-            
-            return dayOfWeek
-        }else {
-            return "날짜 변환 실패"
         }
     }
     
