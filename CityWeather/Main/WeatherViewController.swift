@@ -97,9 +97,13 @@ final class WeatherViewController: BaseViewController {
         print(#function)
         viewModel.inputWeatherData.value = ()
         
-        viewModel.outputWeatherData.bind { value in
-//            self.currentLocationLabel.text = value.debugDescription
+        viewModel.outputCurrentData.bind { value in
+            self.currentLocationLabel.text = value?.name
         }
+        
+//        viewModel.outputForecaseData.bind { value in
+//            self.currentLocationLabel.text = value.
+//        }
     }
 
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HourIntervaModel: Decodable {
+struct ForecaseModel: Decodable {
     let cod: String
     let message: Int
     let cnt: Int

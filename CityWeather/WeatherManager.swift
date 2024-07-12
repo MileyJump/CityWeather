@@ -30,6 +30,7 @@ final class WeatherManager {
                     completionHandler(.success(value))
                 case .failure(let error):
                     completionHandler(.failure(.invalidResponse))
+                    print("\(modelType)==Error=============")
                     print(error)
                 }
             }
