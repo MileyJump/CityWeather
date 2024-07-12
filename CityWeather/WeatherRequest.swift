@@ -9,16 +9,16 @@ import Foundation
 import Alamofire
 
 enum WeatherRequest {
-    case forecase
+    case forecase(lat: Double, lon: Double)
     
     var baseURL: String {
-        return " https://api.openweathermap.org/data/2.5/"
+        return "https://api.openweathermap.org/data/2.5/"
     }
     
     var endPoint: URL {
         switch self {
-        case .forecase:
-            return URL(string: baseURL + "forecast?lat=44.34&lon=10.99&")!
+        case .forecase(let lat, let lon):
+            return URL(string: baseURL + "forecast?lat=\(lat)&lon=\(lon)&")!
         }
     }
     

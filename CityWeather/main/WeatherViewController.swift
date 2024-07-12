@@ -40,9 +40,12 @@ final class WeatherViewController: BaseViewController {
     
     private let weatherTableView = UITableView()
     
+    private let viewModel = WeatherViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
+        bindData()
     }
     
     override func configureHierarchy() {
@@ -84,14 +87,20 @@ final class WeatherViewController: BaseViewController {
         weatherTableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         weatherTableView.register(DailyIntervalTableViewCell.self, forCellReuseIdentifier: DailyIntervalTableViewCell.identifier)
         
-//        weatherTableView.register(CustomHeaderView.self, forHeaderFooterViewReuseIdentifier: CustomHeaderView.identifier)
-        
+
 //        weatherTableView.rowHeight = UITableView.automaticDimension
         weatherTableView.rowHeight = 200
         weatherTableView.estimatedRowHeight = 200
     }
     
-    
+    func bindData() {
+        print(#function)
+        viewModel.inputWeatherData.value = ()
+        
+        viewModel.outputWeatherData.bind { value in
+//            self.currentLocationLabel.text = value.debugDescription
+        }
+    }
 
 }
 

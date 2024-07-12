@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WeatherModel: Decodable {
+struct HourIntervaModel: Decodable {
     let cod: String
     let message: Int
     let cnt: Int
@@ -23,8 +23,8 @@ struct List: Decodable {
     let wind: Wind
     let visibility: Int
     let pop: Double
-    let rain: Rain
-    let sys: Sys
+    let rain: Rain?
+    let sys: Sys?
     let dt_txt: String
 }
 
@@ -66,7 +66,7 @@ struct Rain: Decodable {
 }
 
 struct Sys: Decodable {
-    let pop: String
+    let pod: String
 }
                 
 struct City: Decodable {
