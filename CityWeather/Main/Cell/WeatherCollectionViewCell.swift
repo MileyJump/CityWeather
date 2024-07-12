@@ -22,6 +22,7 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
     func configureCell(data: ForecaseList) {
         timeLabel.text = timeConversion(data.dt_txt)
         weatherImageView.kf.setImage(with: data.weather[0].iconExtraction)
+        tempLabel.text = "\(data.temperatureCelsius.temp)"
         
     }
     
@@ -42,40 +43,47 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
         contentView.addSubview(timeLabel)
         contentView.addSubview(weatherImageView)
         contentView.addSubview(tempLabel)
-        
+    }
+    
+    override func configureView() {
         timeLabel.backgroundColor = .red
-//        timeLabel.text = "12시"
         timeLabel.textAlignment = .center
         timeLabel.font = .systemFont(ofSize: 13)
         
-        weatherImageView.backgroundColor = .blue
         weatherImageView.backgroundColor = .systemMint
         
+        tempLabel.backgroundColor = .systemPink
+        tempLabel.textAlignment = .center
         contentView.backgroundColor = .yellow
     }
     
     override func configureLayout() {
 //        timeLabel.snp.makeConstraints { make in
 //            make.top.horizontalEdges.equalToSuperview().inset(5)
-//            make.height.equalTo(20)
-////            make.bottom.equalToSuperview()
+////            make.height.equalTo(20)
+//            make.bottom.equalToSuperview()
 //            
 //        }
 //        
 //
-        weatherImageView.snp.makeConstraints { make in
-//            make.top.equalTo(timeLabel.snp.bottom).offset(10)
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-//            make.height.equalTo(weatherImageView.snp.width)
-            make.horizontalEdges.equalToSuperview()
-        }
-//        
-//        tempLabel.snp.makeConstraints { make in
-//            make.top.equalTo(weatherImageView.snp.bottom).offset(10)
-//            make.horizontalEdges.equalTo(timeLabel)
+//        weatherImageView.snp.makeConstraints { make in
+////            make.top.equalTo(timeLabel.snp.bottom).offset(10)
+//            make.top.equalToSuperview()
 //            make.bottom.equalToSuperview()
+////            make.height.equalTo(weatherImageView.snp.width)
+//            make.horizontalEdges.equalToSuperview()
 //        }
+//        
+        tempLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+//            make.height.equalTo(10)
+            
+            //            make.top.equalTo(weatherImageView.snp.bottom).offset(10)
+            //            make.horizontalEdges.equalTo(timeLabel)
+        }
     }
-    
+ 
+  
 }

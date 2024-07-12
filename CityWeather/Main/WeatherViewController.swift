@@ -115,18 +115,7 @@ final class WeatherViewController: BaseViewController {
 
 }
 
-extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCollectionViewCell.identifier, for: indexPath) as? WeatherCollectionViewCell else { fatalError("WeatherCollectionViewCell 다운캐스팅 실패") }
-        guard let value = viewModel.outputForecaseData.value else { return cell }
-        cell.configureCell(data: value[indexPath.row])
-        return cell
-    }
-}
+
 
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -159,5 +148,19 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
        
+    }
+}
+
+
+extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.outputForecaseData.value?.count ?? 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCollectionViewCell.identifier, for: indexPath) as? WeatherCollectionViewCell else { fatalError("WeatherCollectionViewCell 다운캐스팅 실패") }
+        guard let value = viewModel.outputForecaseData.value else { return cell }
+        cell.configureCell(data: value[indexPath.row])
+        return cell
     }
 }

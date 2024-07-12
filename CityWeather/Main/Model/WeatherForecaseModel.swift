@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ForecaseModel: Decodable {
+struct WeatherForecaseModel: Decodable {
     let cod: String
     let message: Int
     let cnt: Int
@@ -26,6 +26,10 @@ struct ForecaseList: Decodable {
     let rain: Rain?
     let sys: Sys?
     let dt_txt: String
+    
+    var temperatureCelsius: TemperatureCelsiusForecase {
+        return TemperatureCelsiusForecase(main: main)
+    }
 }
 
 struct Main: Decodable {
@@ -38,6 +42,7 @@ struct Main: Decodable {
     let grnd_level: Int
     let humidity: Int
     let temp_kf: Double
+    
 }
 
 struct Weather: Decodable {
@@ -87,4 +92,16 @@ struct City: Decodable {
 
 struct Coord: Decodable {
     let lat, lon: Double
+}
+
+
+// 섭씨 온도로 변환
+struct TemperatureCelsiusForecase {
+    var temp, temp_min, temp_max: String
+    
+    init(main: Main) {
+        self.temp = String(format: "%.1f", main.temp - 273.15) + "°"
+        self.temp_min = String(format: "%.1f", main.temp - 273.15) + "°"
+        self.temp_max = String(format: "%.1f", main.temp - 273.15) + "°"
+    }
 }

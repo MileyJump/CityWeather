@@ -21,7 +21,7 @@ final class WeatherViewModel {
     
     private func weatherRequest() {
         inputWeatherData.bind { _ in
-            self.callRequest(api: WeatherRequest.forecase(lat: 37.51845, lon: 126.88494), weatherType: ForecaseModel.self)
+            self.callRequest(api: WeatherRequest.forecase(lat: 37.51845, lon: 126.88494), weatherType: WeatherForecaseModel.self)
             self.callRequest(api: WeatherRequest.current(id: 1835847), weatherType: CurrentWeatherModel.self)
         }
     }
@@ -30,7 +30,7 @@ final class WeatherViewModel {
         WeatherManager.shared.callRequest(api: api, modelType: weatherType) { (results: Result<T?, ErrorCode>) in
             switch results {
             case .success(let value):
-                if let forecase = value as? ForecaseModel {
+                if let forecase = value as? WeatherForecaseModel {
                     self.outputForecaseData.value = forecase.list
 //                    print(forecase)
                 }
