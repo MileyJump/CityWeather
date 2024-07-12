@@ -19,8 +19,22 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
     }
     
     func configureCell(data: ForecaseList) {
+        let hourString = timeConversion(data.dt_txt)
+        timeLabel.text = hourString
+        
+    }
     
-        timeLabel.text = data.dt_txt
+    func timeConversion(_ dateString: String) -> String {
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if let date = dateFormat.date(from: dateString) {
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date)
+            return String(hour) + "시"
+        }else {
+            return "날짜 변환 실패"
+        }
     }
     
     override func configureHierarchy() {
@@ -29,7 +43,7 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
         contentView.addSubview(tempLabel)
         
         timeLabel.backgroundColor = .red
-        timeLabel.text = "12시"
+//        timeLabel.text = "12시"
         timeLabel.textAlignment = .center
         timeLabel.font = .systemFont(ofSize: 13)
         
@@ -41,24 +55,25 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
     
     override func configureLayout() {
         timeLabel.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview()
-//            make.height.equalTo(20)
-            make.bottom.equalToSuperview()
+            make.top.horizontalEdges.equalToSuperview().inset(5)
+            make.height.equalTo(20)
+//            make.bottom.equalToSuperview()
             
         }
         
 //
         weatherImageView.snp.makeConstraints { make in
-//            make.top.equalTo(timeLabel.snp.bottom).offset(10)
-            make.top.equalToSuperview()
+            make.top.equalTo(timeLabel.snp.bottom).offset(10)
+//            make.top.equalToSuperview()
             make.height.equalTo(weatherImageView.snp.width)
-            make.horizontalEdges.equalTo(timeLabel)
+            make.horizontalEdges.equalToSuperview()
         }
 //        
-//        tempLabel.snp.makeConstraints { make in
-//            make.top.equalTo(weatherImageView.snp.bottom).offset(10)
-//            make.horizontalEdges.equalTo(timeLabel)
-//        }
+        tempLabel.snp.makeConstraints { make in
+            make.top.equalTo(weatherImageView.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(timeLabel)
+            make.bottom.equalToSuperview()
+        }
     }
     
 }

@@ -106,9 +106,11 @@ final class WeatherViewController: BaseViewController {
             
         }
         
-//        viewModel.outputForecaseData.bind { value in
-//            self.currentLocationLabel.text = value.
-//        }
+        viewModel.outputForecaseData.bind { value in
+            guard let cell = self.weatherTableView.cellForRow(at: [0,0]) as? WeatherTableViewCell else { return }
+            cell.collectionView.reloadData()
+            print("======")
+        }
     }
 
 }
