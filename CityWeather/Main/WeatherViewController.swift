@@ -107,9 +107,15 @@ final class WeatherViewController: BaseViewController {
         }
         
         viewModel.outputForecaseData.bind { value in
+            self.weatherTableView.reloadData()
+            
             guard let cell = self.weatherTableView.cellForRow(at: [0,0]) as? WeatherTableViewCell else { return }
             cell.collectionView.reloadData()
             print("======")
+            
+            
+           
+            
         }
     }
 
@@ -132,19 +138,19 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             cell.collectionView.dataSource = self
             
             let sectionType = SectionType.allCases[indexPath.row]
-            
             cell.headerView.configureHeader(type: sectionType)
             return cell
         case 1 :
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DailyIntervalTableViewCell.identifier, for: indexPath) as? DailyIntervalTableViewCell else { fatalError("DailyIntervalTableViewCell 다운캐스팅 실패") }
-
-            
+            if let value = viewModel.outputForecaseData.value {
+                cell.weatherList = value
+            }
             let sectionType = SectionType.allCases[indexPath.row]
-            
             cell.headerView.configureHeader(type: sectionType)
             return cell
         default:
            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
+//            cell.
             return cell
         }
        

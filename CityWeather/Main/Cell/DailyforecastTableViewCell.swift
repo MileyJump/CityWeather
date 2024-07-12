@@ -65,4 +65,8 @@ class DailyforecastTableViewCell: BaseTableViewCell {
         maximum.textColor = .white
     }
     
+    func configureCell(data: ForecaseList) {
+        dayLabel.text = data.dt_txt
+    }
+    
 }

@@ -66,4 +66,8 @@ class WeatherTableViewCell: BaseTableViewCell {
             make.bottom.horizontalEdges.equalTo(bgView).inset(10)
         }
     }
+    
+    override func configureView() {
+        collectionView.backgroundColor = .clear
+    }
 }

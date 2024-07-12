@@ -52,9 +52,12 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
         
         weatherImageView.backgroundColor = .systemMint
         
-        tempLabel.backgroundColor = .systemPink
+//        tempLabel.backgroundColor = .systemPink
         tempLabel.textAlignment = .center
-        contentView.backgroundColor = .yellow
+        tempLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        tempLabel.textColor = .white
+        contentView.backgroundColor = .clear
+        
     }
     
     override func configureLayout() {

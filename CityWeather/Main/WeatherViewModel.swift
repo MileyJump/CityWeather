@@ -16,9 +16,11 @@ final class WeatherViewModel {
     
     
     init() {
+        // 초기화 시 API 요청
         weatherRequest()
     }
     
+    // inputWeatherData가 변경되면 API 요청
     private func weatherRequest() {
         inputWeatherData.bind { _ in
             self.callRequest(api: WeatherRequest.forecase(lat: 37.51845, lon: 126.88494), weatherType: WeatherForecaseModel.self)
