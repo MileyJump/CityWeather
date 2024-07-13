@@ -12,11 +12,18 @@ class CitySearchViewController: BaseViewController {
     
     let searchBar = UISearchBar()
     let tableView = UITableView()
+    let viewModel = CitySearchViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-        CityListManager.shared.parseCitiesJSON()
+        bindData()
+    }
+    
+    func bindData() {
+        viewModel.outputCityListData.bind { value in
+            
+        }
     }
     
     func setupNavigationBar() {
@@ -60,11 +67,15 @@ class CitySearchViewController: BaseViewController {
 
 extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        30
+        guard let cityList = viewModel.outputCityListData.value else { return 0 }
+        return cityList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CitySearchTableViewCell.identifier, for: indexPath) as? CitySearchTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
+        if let cityList = viewModel.outputCityListData.value {
+            cell.configureCell(cityList[indexPath.row])
+        }
         return cell
     }
 }

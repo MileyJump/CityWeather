@@ -41,6 +41,7 @@
 		B01B2E532C42751E00B981FC /* CityListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E522C42751D00B981FC /* CityListModel.swift */; };
 		B01B2E552C42811E00B981FC /* CityList.json in Resources */ = {isa = PBXBuildFile; fileRef = B01B2E542C42811E00B981FC /* CityList.json */; };
 		B01B2E572C42858F00B981FC /* CitySearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E562C42858F00B981FC /* CitySearchViewModel.swift */; };
+		B01B2E5D2C42888D00B981FC /* CityListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E5C2C42888D00B981FC /* CityListManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		B01B2E522C42751D00B981FC /* CityListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListModel.swift; sourceTree = "<group>"; };
 		B01B2E542C42811E00B981FC /* CityList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CityList.json; sourceTree = "<group>"; };
 		B01B2E562C42858F00B981FC /* CitySearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchViewModel.swift; sourceTree = "<group>"; };
+		B01B2E5C2C42888D00B981FC /* CityListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,7 +196,6 @@
 				B01B2E3C2C41374800B981FC /* DailyIntervalTableViewCell.swift */,
 				B01B2E3E2C41406700B981FC /* DailyforecastTableViewCell.swift */,
 				B01B2E042C3EAC5500B981FC /* WeatherCollectionViewCell.swift */,
-				B01B2E502C426DC200B981FC /* CitySearchTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -228,6 +229,7 @@
 		B01B2E582C4285D000B981FC /* CitySearch */ = {
 			isa = PBXGroup;
 			children = (
+				B01B2E502C426DC200B981FC /* CitySearchTableViewCell.swift */,
 				B01B2E5B2C4285E500B981FC /* Controller */,
 				B01B2E5A2C4285DE00B981FC /* ViewModel */,
 				B01B2E592C4285D900B981FC /* Model */,
@@ -239,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				B01B2E522C42751D00B981FC /* CityListModel.swift */,
+				B01B2E5C2C42888D00B981FC /* CityListManager.swift */,
 				B01B2E542C42811E00B981FC /* CityList.json */,
 			);
 			path = Model;
@@ -361,6 +364,7 @@
 				B01B2E412C4148B800B981FC /* Observable.swift in Sources */,
 				B01B2E172C3EC60400B981FC /* WeatherRequest.swift in Sources */,
 				B01B2E4F2C425E6000B981FC /* CitySearchViewController.swift in Sources */,
+				B01B2E5D2C42888D00B981FC /* CityListManager.swift in Sources */,
 				B01B2E192C3EC78D00B981FC /* WeatherManager.swift in Sources */,
 				B01B2E0F2C3EBA4A00B981FC /* BaseTableViewCell.swift in Sources */,
 				B01B2DEB2C3E6C5F00B981FC /* WeatherViewController.swift in Sources */,

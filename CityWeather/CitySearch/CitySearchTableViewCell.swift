@@ -37,6 +37,11 @@ class CitySearchTableViewCell: BaseTableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
+    func configureCell(_ data: CityListModel) {
+        nameLabel.text = data.name
+        countryLabel.text = data.country
+    }
+    
     override func configureHierarchy() {
         contentView.addSubview(hashtagLabel)
         contentView.addSubview(nameLabel)
