@@ -10,8 +10,10 @@ import SnapKit
 
 final class WeatherViewController: BaseViewController {
     
+    // MARK: - Properties
+
     private let currentLocationLabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "Jeju City"
         label.font = UIFont.systemFont(ofSize: 35, weight: .regular)
         label.textColor = .white
@@ -20,7 +22,7 @@ final class WeatherViewController: BaseViewController {
     }()
     
     private let currentTemperatureLabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "5.9°"
         label.font = UIFont.systemFont(ofSize: 90, weight: .thin)
         label.textColor = .white
@@ -29,7 +31,7 @@ final class WeatherViewController: BaseViewController {
     }()
     
     private let weatherLabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "Broken Clouds \n 최고: 7.0°  |  최저: -4.2°"
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 22)
@@ -42,10 +44,59 @@ final class WeatherViewController: BaseViewController {
     
     private let viewModel = WeatherViewModel()
     
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
         bindData()
+        setupNavigationBar()
+    }
+    
+    
+
+    
+    @objc private func mapButtonTapped() {
+        
+    }
+    
+    @objc private func listButtonTapped() {
+        let vc = CitySearchViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func bindData() {
+        viewModel.inputWeatherData.value = ()
+        
+        viewModel.outputCurrentData.bind { value in
+            guard let value = value else { return }
+            self.currentLocationLabel.text = value.name
+            self.currentTemperatureLabel.text = value.temperatureCelsius.temp
+            self.weatherLabel.text = "\(value.weather[0].description) \n 최고: \(value.temperatureCelsius.temp_max)  |  최저: \(value.temperatureCelsius.temp_min)"
+        }
+        
+        viewModel.outputForecaseData.bind { value in
+            self.weatherTableView.reloadData()
+            
+            guard let cell = self.weatherTableView.cellForRow(at: [0,0]) as? WeatherTableViewCell else { return }
+            cell.collectionView.reloadData()
+        }
+    }
+    
+    // MARK: - UI 구성
+
+    private func setupNavigationBar() {
+        navigationController?.isToolbarHidden = false
+        
+        let mapButton = UIBarButtonItem(image: UIImage(systemName: "map"), style: .plain, target: self, action: #selector(mapButtonTapped))
+        let listButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: #selector(listButtonTapped))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        mapButton.tintColor = .white
+        listButton.tintColor = .white
+        
+        let barItems = [mapButton, flexibleSpace, listButton]
+        self.toolbarItems = barItems
     }
     
     override func configureHierarchy() {
@@ -87,41 +138,16 @@ final class WeatherViewController: BaseViewController {
         weatherTableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         weatherTableView.register(DailyIntervalTableViewCell.self, forCellReuseIdentifier: DailyIntervalTableViewCell.identifier)
         
-
-//        weatherTableView.rowHeight = UITableView.automaticDimension
+        
+        //        weatherTableView.rowHeight = UITableView.automaticDimension
         weatherTableView.rowHeight = 200
         weatherTableView.estimatedRowHeight = 200
     }
-    
-    func bindData() {
-        print(#function)
-        viewModel.inputWeatherData.value = ()
-        
-        viewModel.outputCurrentData.bind { value in
-            guard let value = value else { return }
-            self.currentLocationLabel.text = value.name
-            self.currentTemperatureLabel.text = value.temperatureCelsius.temp
-            self.weatherLabel.text = "\(value.weather[0].description) \n 최고: \(value.temperatureCelsius.temp_max)  |  최저: \(value.temperatureCelsius.temp_min)"
-            
-            
-        }
-        
-        viewModel.outputForecaseData.bind { value in
-            self.weatherTableView.reloadData()
-            
-            guard let cell = self.weatherTableView.cellForRow(at: [0,0]) as? WeatherTableViewCell else { return }
-            cell.collectionView.reloadData()
-            print("======")
-            
-            
-           
-            
-        }
-    }
-
 }
 
 
+
+// MARK: - TableView Delegate, DataSource
 
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -149,14 +175,15 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             cell.headerView.configureHeader(type: sectionType)
             return cell
         default:
-           guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
-//            cell.
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
+            //            cell.
             return cell
         }
-       
+        
     }
 }
 
+// MARK: - CollectionView Delegate, DataSource
 
 extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
