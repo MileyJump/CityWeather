@@ -40,21 +40,28 @@ final class WeatherViewController: BaseViewController {
         return label
     }()
     
+    let customTitleView = WeatherCustomTitleView()
+    
     private let weatherTableView = UITableView()
     
     private let viewModel = WeatherViewModel()
+    
+    var id = 1835847 {
+        didSet {
+            bindData(with: id)
+            weatherTableView.reloadData()
+        }
+    }
     
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
-        bindData()
+        bindData(with: id)
         setupNavigationBar()
+        notification()
     }
-    
-    
-
     
     @objc private func mapButtonTapped() {
         
@@ -65,8 +72,8 @@ final class WeatherViewController: BaseViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func bindData() {
-        viewModel.inputWeatherData.value = ()
+    private func bindData(with id: Int) {
+        viewModel.inputWeatherData.value = id
         
         viewModel.outputCurrentData.bind { value in
             guard let value = value else { return }
@@ -80,6 +87,19 @@ final class WeatherViewController: BaseViewController {
             
             guard let cell = self.weatherTableView.cellForRow(at: [0,0]) as? WeatherTableViewCell else { return }
             cell.collectionView.reloadData()
+        }
+    }
+    
+    func notification() {
+        print(#function)
+        NotificationCenter.default.addObserver(self, selector: #selector(idAction), name: Notification.Name.weatherID, object: nil)
+    }
+    
+    @objc func idAction(_ notification: Notification) {
+        print(#function)
+        if let id = notification.object as? Int {
+            self.id = id
+            
         }
     }
     
@@ -99,6 +119,7 @@ final class WeatherViewController: BaseViewController {
         self.toolbarItems = barItems
         
         navigationItem.backButtonTitle = ""
+        
     }
     
     override func configureHierarchy() {

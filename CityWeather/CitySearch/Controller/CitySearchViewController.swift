@@ -105,13 +105,17 @@ extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let id = viewModel.outputFilteredCityListData.value[indexPath.row].id
-        print(id)
+        NotificationCenter.default.post(name: Notification.Name.weatherID, object: id)
         tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
+        
+        navigationController?.popViewController(animated: true)
     }
 }
 
 extension CitySearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.filterCities(searchText: searchText)
+        
+        
     }
 }
