@@ -20,6 +20,14 @@ class CitySearchViewController: BaseViewController {
         bindData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = false
+    }
+    
     func bindData() {
         viewModel.outputFilteredCityListData.bind { _ in
             self.tableView.reloadData()
@@ -28,9 +36,17 @@ class CitySearchViewController: BaseViewController {
     
     func setupNavigationBar() {
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.tintColor = .white
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = "City"
+        
+        let ellipsisButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(ellipsisButtonTapped))
+        navigationItem.rightBarButtonItem = ellipsisButton
+    }
+    @objc func ellipsisButtonTapped() {
+        
     }
     
     override func configureHierarchy() {
@@ -39,8 +55,10 @@ class CitySearchViewController: BaseViewController {
     
     override func configureLayout() {
         tableView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
+        
         searchBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
         tableView.tableHeaderView = searchBar
     }
@@ -83,6 +101,12 @@ extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configureCell(cityList[indexPath.row])
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let id = viewModel.outputFilteredCityListData.value[indexPath.row].id
+        print(id)
+        tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
     }
 }
 

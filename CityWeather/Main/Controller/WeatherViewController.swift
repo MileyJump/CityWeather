@@ -97,6 +97,8 @@ final class WeatherViewController: BaseViewController {
         
         let barItems = [mapButton, flexibleSpace, listButton]
         self.toolbarItems = barItems
+        
+        navigationItem.backButtonTitle = ""
     }
     
     override func configureHierarchy() {
