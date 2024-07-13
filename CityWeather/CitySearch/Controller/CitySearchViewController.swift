@@ -21,8 +21,8 @@ class CitySearchViewController: BaseViewController {
     }
     
     func bindData() {
-        viewModel.outputCityListData.bind { value in
-            
+        viewModel.outputFilteredCityListData.bind { _ in
+            self.tableView.reloadData()
         }
     }
     
@@ -48,6 +48,8 @@ class CitySearchViewController: BaseViewController {
     override func configureView() {
         searchBar.placeholder = "Search for a city"
         searchBar.backgroundImage = UIImage()
+        searchBar.delegate = self
+        
         tableView.backgroundColor = .clear
         
         tableView.dataSource = self
@@ -67,15 +69,25 @@ class CitySearchViewController: BaseViewController {
 
 extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let cityList = viewModel.outputCityListData.value else { return 0 }
-        return cityList.count
+//        guard let cityList = viewModel.outputCityListData.value else { return 0 }
+//        return cityList.count
+        return viewModel.outputFilteredCityListData.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CitySearchTableViewCell.identifier, for: indexPath) as? CitySearchTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
-        if let cityList = viewModel.outputCityListData.value {
+//        if let cityList = viewModel.outputCityListData.value {
+//            cell.configureCell(cityList[indexPath.row])
+//        }
+         let cityList = viewModel.outputFilteredCityListData.value
             cell.configureCell(cityList[indexPath.row])
-        }
+        
         return cell
+    }
+}
+
+extension CitySearchViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.filterCities(searchText: searchText)
     }
 }
