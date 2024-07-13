@@ -8,7 +8,14 @@
 import UIKit
 import SnapKit
 
-final class WeatherViewController: BaseViewController {
+protocol WeatherIdDelegate: AnyObject {
+    func idUpdateDelegate(id: Int)
+}
+
+final class WeatherViewController: BaseViewController, WeatherIdDelegate {
+    
+    
+   
     
     // MARK: - Properties
 
@@ -48,6 +55,7 @@ final class WeatherViewController: BaseViewController {
     
     var id = 1835847 {
         didSet {
+            print("=====")
             bindData(with: id)
             weatherTableView.reloadData()
         }
@@ -60,7 +68,6 @@ final class WeatherViewController: BaseViewController {
         view.backgroundColor = .blue
         bindData(with: id)
         setupNavigationBar()
-        notification()
     }
     
     @objc private func mapButtonTapped() {
@@ -69,6 +76,7 @@ final class WeatherViewController: BaseViewController {
     
     @objc private func listButtonTapped() {
         let vc = CitySearchViewController()
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -90,18 +98,11 @@ final class WeatherViewController: BaseViewController {
         }
     }
     
-    func notification() {
+    func idUpdateDelegate(id: Int) {
         print(#function)
-        NotificationCenter.default.addObserver(self, selector: #selector(idAction), name: Notification.Name.weatherID, object: nil)
+        self.id = id
     }
     
-    @objc func idAction(_ notification: Notification) {
-        print(#function)
-        if let id = notification.object as? Int {
-            self.id = id
-            
-        }
-    }
     
     // MARK: - UI 구성
 
@@ -160,6 +161,7 @@ final class WeatherViewController: BaseViewController {
         weatherTableView.dataSource = self
         weatherTableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         weatherTableView.register(DailyIntervalTableViewCell.self, forCellReuseIdentifier: DailyIntervalTableViewCell.identifier)
+        weatherTableView.register(MapTableViewCell.self, forCellReuseIdentifier: MapTableViewCell.identifier)
         
         
         //        weatherTableView.rowHeight = UITableView.automaticDimension
@@ -174,11 +176,11 @@ final class WeatherViewController: BaseViewController {
 
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        let sectionType = SectionType.allCases[indexPath.row]
         switch indexPath.row {
         case 0 :
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
@@ -186,7 +188,6 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             cell.collectionView.delegate = self
             cell.collectionView.dataSource = self
             
-            let sectionType = SectionType.allCases[indexPath.row]
             cell.headerView.configureHeader(type: sectionType)
             return cell
         case 1 :
@@ -194,11 +195,15 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             if let value = viewModel.outputForecaseData.value {
                 cell.weatherList = value
             }
-            let sectionType = SectionType.allCases[indexPath.row]
+            
+            cell.headerView.configureHeader(type: sectionType)
+            return cell
+        case 2:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.identifier, for: indexPath) as? MapTableViewCell else { fatalError("DailyIntervalTableViewCell 다운캐스팅 실패") }
             cell.headerView.configureHeader(type: sectionType)
             return cell
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.identifier, for: indexPath) as? MapTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
             //            cell.
             return cell
         }

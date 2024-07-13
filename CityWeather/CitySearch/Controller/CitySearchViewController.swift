@@ -13,6 +13,7 @@ class CitySearchViewController: BaseViewController {
     let searchBar = UISearchBar()
     let tableView = UITableView()
     let viewModel = CitySearchViewModel()
+    var delegate: WeatherIdDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +79,7 @@ class CitySearchViewController: BaseViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         
-//        tableView.separatorStyle = .none
+        tableView.separatorStyle = .none
     }
     
     
@@ -105,7 +106,8 @@ extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let id = viewModel.outputFilteredCityListData.value[indexPath.row].id
-        NotificationCenter.default.post(name: Notification.Name.weatherID, object: id)
+        delegate?.idUpdateDelegate(id: id)
+//        NotificationCenter.default.post(name: Notification.Name.weatherID, object: id)
         tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
         
         navigationController?.popViewController(animated: true)
