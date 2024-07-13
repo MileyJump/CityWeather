@@ -13,7 +13,7 @@ class CitySearchTableViewCell: BaseTableViewCell {
         let label = UILabel()
         label.text = "#"
         label.textColor = .white
-        label.font = .systemFont(ofSize: 18)
+        label.font = .systemFont(ofSize: 25)
         return label
     }()
     
@@ -22,7 +22,7 @@ class CitySearchTableViewCell: BaseTableViewCell {
         let label = UILabel()
         label.text = "Heunghae"
         label.textColor = .white
-        label.font = .systemFont(ofSize: 18)
+        label.font = .boldSystemFont(ofSize: 18)
         return label
     }()
     
@@ -30,7 +30,7 @@ class CitySearchTableViewCell: BaseTableViewCell {
         let label = UILabel()
         label.text = "KR"
         label.textColor = .systemGray2
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 15)
         return label
     }()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -46,19 +46,19 @@ class CitySearchTableViewCell: BaseTableViewCell {
     override func configureLayout() {
         hashtagLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
-            make.leading.equalToSuperview().offset(10)
+            make.leading.equalToSuperview().offset(15)
             make.height.equalTo(30)
         }
         
         nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(hashtagLabel.snp.top).offset(5)
-            make.leading.equalTo(hashtagLabel.snp.trailing).offset(10)
+            make.top.equalTo(hashtagLabel.snp.top).offset(3)
+            make.leading.equalTo(hashtagLabel.snp.trailing).offset(8)
         }
         
         countryLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(10)
+            make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.leading.equalTo(nameLabel.snp.leading)
-            make.bottom.equalTo(10)
+            make.bottom.equalToSuperview().offset(-10)
         }
     }
     

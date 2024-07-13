@@ -16,6 +16,7 @@ class CitySearchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+        CityListManager.shared.parseCitiesJSON()
     }
     
     func setupNavigationBar() {
@@ -33,17 +34,24 @@ class CitySearchViewController: BaseViewController {
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+        searchBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        tableView.tableHeaderView = searchBar
     }
     
     override func configureView() {
-        searchBar.backgroundColor = .clear
+        searchBar.placeholder = "Search for a city"
+        searchBar.backgroundImage = UIImage()
         tableView.backgroundColor = .clear
-        tableView.tableHeaderView = searchBar
+        
         tableView.dataSource = self
         tableView.delegate = self
         
-        
         tableView.register(CitySearchTableViewCell.self, forCellReuseIdentifier: CitySearchTableViewCell.identifier)
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        
+//        tableView.separatorStyle = .none
     }
     
     
