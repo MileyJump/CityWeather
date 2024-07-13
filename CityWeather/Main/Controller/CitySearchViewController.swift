@@ -26,26 +26,24 @@ class CitySearchViewController: BaseViewController {
     }
     
     override func configureHierarchy() {
-        view.addSubview(searchBar)
         view.addSubview(tableView)
     }
     
     override func configureLayout() {
-        searchBar.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-        }
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom)
-            make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
     override func configureView() {
         searchBar.backgroundColor = .clear
         tableView.backgroundColor = .clear
-        
+        tableView.tableHeaderView = searchBar
         tableView.dataSource = self
         tableView.delegate = self
+        
+        
+        tableView.register(CitySearchTableViewCell.self, forCellReuseIdentifier: CitySearchTableViewCell.identifier)
     }
     
     
@@ -53,5 +51,12 @@ class CitySearchViewController: BaseViewController {
 }
 
 extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        30
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CitySearchTableViewCell.identifier, for: indexPath) as? CitySearchTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
+        return cell
+    }
 }
