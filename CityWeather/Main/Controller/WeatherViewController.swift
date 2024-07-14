@@ -165,6 +165,9 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.identifier, for: indexPath) as? MapTableViewCell else { fatalError("DailyIntervalTableViewCell 다운캐스팅 실패") }
             cell.headerView.configureHeader(type: sectionType)
+            if let value = viewModel.outputCurrentData.value {
+                cell.configureMapLocation(data: value)
+            }
             return cell
         case 4:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ConditionsTableViewCell.identifier, for: indexPath) as? ConditionsTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
