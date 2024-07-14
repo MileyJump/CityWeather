@@ -21,6 +21,7 @@ final class MapTableViewCell: BaseTableViewCell {
     let headerView = HeaderView()
 
     private let mapView = MKMapView()
+    private var coordinates: CLLocationCoordinate2D?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -52,6 +53,28 @@ final class MapTableViewCell: BaseTableViewCell {
     
     override func configureView() {
         backgroundColor = .clear
+        
+//        mapView.delegate = self
+        
+        // 기본 위치 설정 (예: 서울 좌표)
+        let initialLocation = CLLocation(latitude: 37.51845, longitude: 126.88494)
+        centerMapOnLocation(location: initialLocation)
+        
+        // 경도와 위도를 기반으로 마커 추가
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 37.51845, longitude: 126.88494)
+        annotation.title = "새싹"
+        mapView.addAnnotation(annotation)
     }
     
+    private func centerMapOnLocation(location: CLLocation) {
+           let regionRadius: CLLocationDistance = 1000
+           let coordinateRegion = MKCoordinateRegion(
+               center: location.coordinate,
+               latitudinalMeters: regionRadius * 2.0,
+               longitudinalMeters: regionRadius * 2.0)
+           mapView.setRegion(coordinateRegion, animated: true)
+       }
+    
 }
+
