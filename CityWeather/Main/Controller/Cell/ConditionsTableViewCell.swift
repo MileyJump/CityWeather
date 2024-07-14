@@ -30,7 +30,6 @@ final class ConditionsTableViewCell: BaseTableViewCell {
     
     override func configureHierarchy() {
         contentView.addSubview(collectionView)
-        collectionView.backgroundColor = .blue
     }
     
     override func configureLayout() {
@@ -43,6 +42,8 @@ final class ConditionsTableViewCell: BaseTableViewCell {
         collectionView.register(ConditionsCollectionViewCell.self, forCellWithReuseIdentifier: ConditionsCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundColor = .clear
+        backgroundColor = .clear
     }
     
 }

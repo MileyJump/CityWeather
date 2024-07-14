@@ -51,7 +51,7 @@ final class MapTableViewCell: BaseTableViewCell {
     }
     
     override func configureView() {
-        mapView.backgroundColor = .systemPink
+        backgroundColor = .clear
     }
     
 }

@@ -7,12 +7,12 @@
 
 import UIKit
 
-enum SectionType {
+enum SectionType: CaseIterable {
     case header
     case timeInterval
     case dailyInterval
     case location
-    case conditions(title: String, imageName: String)
+    case conditions
     
     var sectionTitle: String {
         switch self {
@@ -24,8 +24,8 @@ enum SectionType {
             return "5일 간의 일기예보"
         case .location:
             return "위치"
-        case .conditions(let title, _):
-            return title
+        case .conditions:
+            return ""
         }
     }
     
@@ -39,23 +39,13 @@ enum SectionType {
             return "calendar"
         case .location:
             return "thermometer.low"
-        case .conditions(_, let imageName):
-            return imageName
+        case .conditions:
+            return ""
         }
     }
 }
 
-extension SectionType: CaseIterable {
-    static var allCases: [SectionType] {
-        return [
-            .header,
-            .timeInterval,
-            .dailyInterval,
-            .location,
-            .conditions(title: "날씨", imageName: "star")
-        ]
-    }
-}
+
 
 
 

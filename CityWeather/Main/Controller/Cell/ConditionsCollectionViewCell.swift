@@ -86,7 +86,6 @@ final class ConditionsCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        backgroundColor = .red
         headerView.titleLabel.textColor = .systemGray2
         headerView.iconImageViwe.tintColor = .systemGray2
     }

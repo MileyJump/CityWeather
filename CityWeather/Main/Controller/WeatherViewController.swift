@@ -16,6 +16,13 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
 
     // MARK: - Properties
     
+    private let bgImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "하늘")
+        image.backgroundColor = .yellow
+        return image
+    }()
+    
     private let weatherTableView = UITableView()
     
     private let viewModel = WeatherViewModel()
@@ -27,6 +34,16 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
         view.backgroundColor = .blue
         bindData(with: 1835847)
         setupNavigationBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc private func mapButtonTapped() {
@@ -79,35 +96,35 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
         
         navigationItem.backButtonTitle = ""
         
+        
     }
     
     override func configureHierarchy() {
+        view.addSubview(bgImageView)
         view.addSubview(weatherTableView)
     }
     
     override func configureLayout() {
+        bgImageView.snp.makeConstraints { make in
+            make.edges.equalTo(view)
+        }
         weatherTableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
     override func configureView() {
-        weatherTableView.backgroundColor = .brown
+        weatherTableView.backgroundColor = .clear
+        weatherTableView.separatorStyle = .none
         
         weatherTableView.delegate = self
         weatherTableView.dataSource = self
+   
         weatherTableView.register(CustomHeaderView.self, forCellReuseIdentifier: CustomHeaderView.identifier)
         weatherTableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         weatherTableView.register(DailyIntervalTableViewCell.self, forCellReuseIdentifier: DailyIntervalTableViewCell.identifier)
         weatherTableView.register(MapTableViewCell.self, forCellReuseIdentifier: MapTableViewCell.identifier)
         weatherTableView.register(ConditionsTableViewCell.self, forCellReuseIdentifier: ConditionsTableViewCell.identifier)
-        
-        
-        //        weatherTableView.rowHeight = UITableView.automaticDimension
-        weatherTableView.rowHeight = 200
-        weatherTableView.estimatedRowHeight = 200
     }
 }
 
@@ -151,7 +168,6 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 4:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ConditionsTableViewCell.identifier, for: indexPath) as? ConditionsTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
-//            cell.headerView.configureHeader(type: sectionType)
             return cell
             
         default:
@@ -182,9 +198,21 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellCase = SectionType.allCases[indexPath.row]
+        switch cellCase {
+        case .header:
+            return 270
+        case .timeInterval:
+            return 200
+        case .dailyInterval:
+            return 300
+        case .location:
+            return 300
+        case .conditions:
+            return 480
+        }
+    }
 }
 
 // MARK: - CollectionView Delegate, DataSource

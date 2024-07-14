@@ -61,6 +61,7 @@ final class DailyIntervalTableViewCell: BaseTableViewCell {
         dailyTableView.estimatedRowHeight = 100
         
         dailyTableView.backgroundColor = .clear
+        backgroundColor = .clear
     }
 }
 

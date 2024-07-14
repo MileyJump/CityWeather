@@ -43,8 +43,6 @@ final class WeatherTableViewCell: BaseTableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-  
-    
     override func configureHierarchy() {
         contentView.addSubview(bgView)
         bgView.addSubview(collectionView)
@@ -69,5 +67,6 @@ final class WeatherTableViewCell: BaseTableViewCell {
     
     override func configureView() {
         collectionView.backgroundColor = .clear
+        backgroundColor = .clear
     }
 }
