@@ -207,12 +207,10 @@
 			children = (
 				B01B2E6A2C43AAAE00B981FC /* CustomHeaderView.swift */,
 				B01B2E0C2C3EBA3700B981FC /* WeatherTableViewCell.swift */,
-				B01B2E6E2C44273600B981FC /* DepthCell */,
 				B01B2E3C2C41374800B981FC /* DailyIntervalTableViewCell.swift */,
-				B01B2E3E2C41406700B981FC /* DailyforecastTableViewCell.swift */,
 				B01B2E642C42C5A900B981FC /* MapTableViewCell.swift */,
 				B01B2E682C42C97C00B981FC /* ConditionsTableViewCell.swift */,
-				B01B2E662C42C7C000B981FC /* ConditionsCollectionViewCell.swift */,
+				B01B2E6E2C44273600B981FC /* DepthCell */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -301,6 +299,8 @@
 			isa = PBXGroup;
 			children = (
 				B01B2E042C3EAC5500B981FC /* WeatherCollectionViewCell.swift */,
+				B01B2E3E2C41406700B981FC /* DailyforecastTableViewCell.swift */,
+				B01B2E662C42C7C000B981FC /* ConditionsCollectionViewCell.swift */,
 			);
 			path = DepthCell;
 			sourceTree = "<group>";

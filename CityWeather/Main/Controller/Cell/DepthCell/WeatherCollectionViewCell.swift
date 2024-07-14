@@ -61,31 +61,35 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureLayout() {
-//        timeLabel.snp.makeConstraints { make in
-//            make.top.horizontalEdges.equalToSuperview().inset(5)
-////            make.height.equalTo(20)
-//            make.bottom.equalToSuperview()
-//            
-//        }
-//        
-//
+        timeLabel.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalToSuperview().inset(5)
+//            make.height.equalTo(20)
+            
+            make.bottom.equalToSuperview()
+            
+        }
+        
+
 //        weatherImageView.snp.makeConstraints { make in
-////            make.top.equalTo(timeLabel.snp.bottom).offset(10)
+//            make.top.equalTo(timeLabel.snp.bottom).offset(10)
+//            make.height.equalTo(weatherImageView.snp.width)
+//            
+//            make.horizontalEdges.equalToSuperview()
+            
 //            make.top.equalToSuperview()
 //            make.bottom.equalToSuperview()
-////            make.height.equalTo(weatherImageView.snp.width)
-//            make.horizontalEdges.equalToSuperview()
+            
 //        }
 //        
-        tempLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
+//        tempLabel.snp.makeConstraints { make in
+//            make.top.equalToSuperview()
+//            make.horizontalEdges.equalToSuperview()
+//            make.bottom.equalToSuperview()
 //            make.height.equalTo(10)
             
             //            make.top.equalTo(weatherImageView.snp.bottom).offset(10)
             //            make.horizontalEdges.equalTo(timeLabel)
-        }
+//        }
     }
  
   

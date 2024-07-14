@@ -45,6 +45,19 @@ final class WeatherViewModel {
          }
      
     }
+    
+//    private func weatherRequest() {
+//        inputWeatherData.bind { data in
+//            guard let data = data else { return }
+//            let id = data.0
+//            let lat = data.1
+//            let lon = data.2
+//            self.callRequest(api: WeatherRequest.forecase(lat: lat, lon: lon), weatherType: WeatherForecaseModel.self)
+//            self.callRequest(api: WeatherRequest.current(id: id), weatherType: CurrentWeatherModel.self)
+//        }
+//    }
+    
+    
     //    37.51845 lat
     //    126.88494 lon
     //    1835847 id
