@@ -47,6 +47,7 @@
 		B01B2E692C42C97C00B981FC /* ConditionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E682C42C97C00B981FC /* ConditionsTableViewCell.swift */; };
 		B01B2E6B2C43AAAE00B981FC /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E6A2C43AAAE00B981FC /* CustomHeaderView.swift */; };
 		B01B2E6D2C43B7B800B981FC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E6C2C43B7B800B981FC /* MapViewController.swift */; };
+		B01B2E702C44344800B981FC /* WeatherForecaseModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E6F2C44344800B981FC /* WeatherForecaseModelManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,7 @@
 		B01B2E682C42C97C00B981FC /* ConditionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionsTableViewCell.swift; sourceTree = "<group>"; };
 		B01B2E6A2C43AAAE00B981FC /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		B01B2E6C2C43B7B800B981FC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		B01B2E6F2C44344800B981FC /* WeatherForecaseModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecaseModelManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,14 +205,14 @@
 		B01B2E3B2C4135A300B981FC /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				B01B2E6A2C43AAAE00B981FC /* CustomHeaderView.swift */,
 				B01B2E0C2C3EBA3700B981FC /* WeatherTableViewCell.swift */,
+				B01B2E6E2C44273600B981FC /* DepthCell */,
 				B01B2E3C2C41374800B981FC /* DailyIntervalTableViewCell.swift */,
 				B01B2E3E2C41406700B981FC /* DailyforecastTableViewCell.swift */,
-				B01B2E042C3EAC5500B981FC /* WeatherCollectionViewCell.swift */,
 				B01B2E642C42C5A900B981FC /* MapTableViewCell.swift */,
-				B01B2E662C42C7C000B981FC /* ConditionsCollectionViewCell.swift */,
 				B01B2E682C42C97C00B981FC /* ConditionsTableViewCell.swift */,
-				B01B2E6A2C43AAAE00B981FC /* CustomHeaderView.swift */,
+				B01B2E662C42C7C000B981FC /* ConditionsCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				B01B2E1C2C3EC87800B981FC /* WeatherForecaseModel.swift */,
+				B01B2E6F2C44344800B981FC /* WeatherForecaseModelManager.swift */,
 				B01B2E452C41660A00B981FC /* CurrentWeatherModel.swift */,
 			);
 			path = Model;
@@ -292,6 +295,14 @@
 				B01B2E6C2C43B7B800B981FC /* MapViewController.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		B01B2E6E2C44273600B981FC /* DepthCell */ = {
+			isa = PBXGroup;
+			children = (
+				B01B2E042C3EAC5500B981FC /* WeatherCollectionViewCell.swift */,
+			);
+			path = DepthCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -402,6 +413,7 @@
 				B01B2E192C3EC78D00B981FC /* WeatherManager.swift in Sources */,
 				B01B2E0F2C3EBA4A00B981FC /* BaseTableViewCell.swift in Sources */,
 				B01B2DEB2C3E6C5F00B981FC /* WeatherViewController.swift in Sources */,
+				B01B2E702C44344800B981FC /* WeatherForecaseModelManager.swift in Sources */,
 				B01B2E2F2C411A7F00B981FC /* SectionType.swift in Sources */,
 				B01B2DFB2C3E9DA600B981FC /* BaseViewController.swift in Sources */,
 				B01B2E652C42C5A900B981FC /* MapTableViewCell.swift in Sources */,

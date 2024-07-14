@@ -54,13 +54,10 @@ extension ConditionsTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellCase = collectionHeaderType.allCases[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConditionsCollectionViewCell.identifier, for: indexPath) as? ConditionsCollectionViewCell else { fatalError("ConditionsCollectionViewCell 실패 ")}
-//        cell.headerView.configureHeader(type: SectionType.conditions(title: "바람속도", imageName: "star"))
-        cell.configureCell(collectionHeaderType.allCases[indexPath.row])
-//        cell.headerView.configureHeader(type: collectionHeaderType.allCases[indexPath.row])
+        cell.headerView.titleLabel.text = cellCase.sectionTitle
+        cell.headerView.iconImageViwe.image = UIImage(systemName: cellCase.sectionImage)
         return cell
     }
-    
-    
-    
 }

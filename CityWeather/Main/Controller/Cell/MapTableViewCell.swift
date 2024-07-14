@@ -47,7 +47,6 @@ final class MapTableViewCell: BaseTableViewCell {
         mapView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(10)
             make.bottom.horizontalEdges.equalToSuperview().inset(10)
-            make.height.equalTo(mapView.snp.width)
         }
     }
     

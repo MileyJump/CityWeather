@@ -80,9 +80,8 @@ final class ConditionsCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func configureCell(_ data: collectionHeaderType){
-        headerView.titleLabel.text = data.sectionTitle
-        headerView.iconImageViwe.image = UIImage(systemName: data.sectionImage)
+    func configureCell(_ data: CurrentWeatherModel ) {
+        
     }
     
     override func configureView() {

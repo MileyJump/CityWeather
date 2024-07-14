@@ -70,3 +70,5 @@ final class WeatherTableViewCell: BaseTableViewCell {
         backgroundColor = .clear
     }
 }
+
+

@@ -66,7 +66,7 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
         }
         
         viewModel.outputForecaseData.bind { value in
-            self.weatherTableView.reloadData()
+//            self.weatherTableView.reloadData()
             
             guard let cell = self.weatherTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? WeatherTableViewCell else { return }
             cell.collectionView.reloadData()
@@ -149,6 +149,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             
         case 1 :
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
+            
             cell.collectionView.register(WeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
             cell.collectionView.delegate = self
             cell.collectionView.dataSource = self
