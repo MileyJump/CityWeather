@@ -13,60 +13,20 @@ protocol WeatherIdDelegate: AnyObject {
 }
 
 final class WeatherViewController: BaseViewController, WeatherIdDelegate {
-    
-    
-   
+
     
     // MARK: - Properties
-
-    private let currentLocationLabel = {
-        let label = UILabel()
-        label.text = "Jeju City"
-        label.font = UIFont.systemFont(ofSize: 35, weight: .regular)
-        label.textColor = .white
-        label.textAlignment = .center
-        return label
-    }()
-    
-    private let currentTemperatureLabel = {
-        let label = UILabel()
-        label.text = "5.9°"
-        label.font = UIFont.systemFont(ofSize: 90, weight: .thin)
-        label.textColor = .white
-        label.textAlignment = .center
-        return label
-    }()
-    
-    private let weatherLabel = {
-        let label = UILabel()
-        label.text = "Broken Clouds \n 최고: 7.0°  |  최저: -4.2°"
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 22)
-        label.textColor = .white
-        label.textAlignment = .center
-        return label
-    }()
-    
-    let customTitleView = WeatherCustomTitleView()
     
     private let weatherTableView = UITableView()
     
     private let viewModel = WeatherViewModel()
-    
-    var id = 1835847 {
-        didSet {
-            print("=====")
-            bindData(with: id)
-            weatherTableView.reloadData()
-        }
-    }
     
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
-        bindData(with: id)
+        bindData(with: 1835847)
         setupNavigationBar()
     }
     
@@ -83,24 +43,22 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
     private func bindData(with id: Int) {
         viewModel.inputWeatherData.value = id
         
-        viewModel.outputCurrentData.bind { value in
-            guard let value = value else { return }
-            self.currentLocationLabel.text = value.name
-            self.currentTemperatureLabel.text = value.temperatureCelsius.temp
-            self.weatherLabel.text = "\(value.weather[0].description) \n 최고: \(value.temperatureCelsius.temp_max)  |  최저: \(value.temperatureCelsius.temp_min)"
+
+        viewModel.outputCurrentData.bind { _ in
+            self.weatherTableView.reloadData()
         }
         
         viewModel.outputForecaseData.bind { value in
             self.weatherTableView.reloadData()
             
-            guard let cell = self.weatherTableView.cellForRow(at: [0,0]) as? WeatherTableViewCell else { return }
+            guard let cell = self.weatherTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? WeatherTableViewCell else { return }
             cell.collectionView.reloadData()
         }
     }
     
     func idUpdateDelegate(id: Int) {
         print(#function)
-        self.id = id
+        viewModel.inputWeatherData.value = id
     }
     
     
@@ -124,31 +82,12 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
     }
     
     override func configureHierarchy() {
-        view.addSubview(currentLocationLabel)
-        view.addSubview(currentTemperatureLabel)
-        view.addSubview(weatherLabel)
         view.addSubview(weatherTableView)
     }
     
     override func configureLayout() {
-        
-        currentLocationLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            make.centerX.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        currentTemperatureLabel.snp.makeConstraints { make in
-            make.top.equalTo(currentLocationLabel.snp.bottom).inset(10)
-            make.centerX.equalTo(currentLocationLabel).offset(10)
-        }
-        
-        weatherLabel.snp.makeConstraints { make in
-            make.top.equalTo(currentTemperatureLabel.snp.bottom).inset(10)
-            make.centerX.equalTo(currentLocationLabel)
-        }
-        
         weatherTableView.snp.makeConstraints { make in
-            make.top.equalTo(weatherLabel.snp.bottom).offset(80)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -159,6 +98,7 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
         
         weatherTableView.delegate = self
         weatherTableView.dataSource = self
+        weatherTableView.register(CustomHeaderView.self, forCellReuseIdentifier: CustomHeaderView.identifier)
         weatherTableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         weatherTableView.register(DailyIntervalTableViewCell.self, forCellReuseIdentifier: DailyIntervalTableViewCell.identifier)
         weatherTableView.register(MapTableViewCell.self, forCellReuseIdentifier: MapTableViewCell.identifier)
@@ -176,13 +116,20 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
 
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let sectionType = SectionType.allCases[indexPath.row]
         switch indexPath.row {
-        case 0 :
+        case 0 : 
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomHeaderView.identifier, for: indexPath) as? CustomHeaderView else { fatalError("CustomHeaderView 다운캐스팅 실패") }
+            if let value = viewModel.outputCurrentData.value {
+                cell.configureCell(value)
+            }
+            return cell
+            
+        case 1 :
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as? WeatherTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
             cell.collectionView.register(WeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
             cell.collectionView.delegate = self
@@ -190,7 +137,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.headerView.configureHeader(type: sectionType)
             return cell
-        case 1 :
+        case 2 :
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DailyIntervalTableViewCell.identifier, for: indexPath) as? DailyIntervalTableViewCell else { fatalError("DailyIntervalTableViewCell 다운캐스팅 실패") }
             if let value = viewModel.outputForecaseData.value {
                 cell.weatherList = value
@@ -198,13 +145,12 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.headerView.configureHeader(type: sectionType)
             return cell
-        case 2:
+        case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.identifier, for: indexPath) as? MapTableViewCell else { fatalError("DailyIntervalTableViewCell 다운캐스팅 실패") }
             cell.headerView.configureHeader(type: sectionType)
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.identifier, for: indexPath) as? MapTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
-            //            cell.
             return cell
         }
         
