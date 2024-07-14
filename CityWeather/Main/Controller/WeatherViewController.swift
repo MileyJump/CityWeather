@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol WeatherIdDelegate: AnyObject {
-    func idUpdateDelegate(id: Int)
+    func idUpdateDelegate(id: Int, lat: Double, lon: Double)
 }
 
 final class WeatherViewController: BaseViewController, WeatherIdDelegate {
@@ -32,7 +32,7 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
-        bindData(with: 1835847)
+        bindData(id: 1835847, lat: 37.51845, lon: 126.88494 )
         setupNavigationBar()
     }
     
@@ -57,8 +57,8 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func bindData(with id: Int) {
-        viewModel.inputWeatherData.value = id
+    private func bindData(id: Int, lat: Double, lon: Double) {
+        viewModel.inputWeatherData.value = (id, lat, lon)
         
 
         viewModel.outputCurrentData.bind { _ in
@@ -73,9 +73,9 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
         }
     }
     
-    func idUpdateDelegate(id: Int) {
+    func idUpdateDelegate(id: Int, lat: Double, lon: Double) {
         print(#function)
-        viewModel.inputWeatherData.value = id
+        viewModel.inputWeatherData.value = (id, lat, lon)
     }
     
     

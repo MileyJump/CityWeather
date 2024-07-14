@@ -105,8 +105,8 @@ extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let id = viewModel.outputFilteredCityListData.value[indexPath.row].id
-        delegate?.idUpdateDelegate(id: id)
+        let cityData = viewModel.outputFilteredCityListData.value[indexPath.row]
+        delegate?.idUpdateDelegate(id: cityData.id, lat: cityData.coord.lat, lon: cityData.coord.lon)
 //        NotificationCenter.default.post(name: Notification.Name.weatherID, object: id)
         tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
         

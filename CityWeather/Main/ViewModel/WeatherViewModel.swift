@@ -9,7 +9,7 @@ import Alamofire
 
 final class WeatherViewModel {
     
-    var inputWeatherData: Observable<Int?> = Observable(nil)
+    var inputWeatherData: Observable<(Int, Double, Double)?> = Observable(nil)
 
     var outputForecaseData: Observable<[ForecaseList]?> = Observable(nil)
     var outputCurrentData: Observable<CurrentWeatherModel?> = Observable(nil)
@@ -22,13 +22,18 @@ final class WeatherViewModel {
     
     // inputWeatherData가 변경되면 API 요청
     private func weatherRequest() {
-        inputWeatherData.bind { id in
-            guard let id = id else { return }
-            self.callRequest(api: WeatherRequest.forecase(lat: 37.51845, lon: 126.88494), weatherType: WeatherForecaseModel.self)
+        inputWeatherData.bind { data in
+            guard let data = data else { return }
+            let id = data.0
+            let lat = data.1
+            let lon = data.2
+            self.callRequest(api: WeatherRequest.forecase(lat: lat, lon: lon), weatherType: WeatherForecaseModel.self)
             self.callRequest(api: WeatherRequest.current(id: id), weatherType: CurrentWeatherModel.self)
         }
     }
-//    1835847
+//    37.51845 lat
+//    126.88494 lon
+//    1835847 id
     private func callRequest<T: Decodable>(api: WeatherRequest, weatherType: T.Type) {
         WeatherManager.shared.callRequest(api: api, modelType: weatherType) { (results: Result<T?, ErrorCode>) in
             switch results {
