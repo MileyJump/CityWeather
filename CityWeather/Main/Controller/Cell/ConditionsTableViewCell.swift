@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ConditionsTableViewCell: BaseTableViewCell {
+final class ConditionsTableViewCell: BaseTableViewCell {
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
     private func layout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()

@@ -14,7 +14,6 @@ protocol WeatherIdDelegate: AnyObject {
 
 final class WeatherViewController: BaseViewController, WeatherIdDelegate {
 
-    
     // MARK: - Properties
     
     private let weatherTableView = UITableView()
@@ -31,7 +30,8 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
     }
     
     @objc private func mapButtonTapped() {
-        
+        let vc = MapViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func listButtonTapped() {
@@ -116,13 +116,13 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
 
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return SectionType.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let sectionType = SectionType.allCases[indexPath.row]
         switch indexPath.row {
-        case 0 : 
+        case 0 :
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomHeaderView.identifier, for: indexPath) as? CustomHeaderView else { fatalError("CustomHeaderView 다운캐스팅 실패") }
             if let value = viewModel.outputCurrentData.value {
                 cell.configureCell(value)
@@ -134,7 +134,6 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             cell.collectionView.register(WeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
             cell.collectionView.delegate = self
             cell.collectionView.dataSource = self
-            
             cell.headerView.configureHeader(type: sectionType)
             return cell
         case 2 :
@@ -152,6 +151,28 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.identifier, for: indexPath) as? MapTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
             return cell
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 3 {
+            let vc = MapViewController()
+            navigationController?.pushViewController(vc, animated: true)
+            tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
+        } else {
+            tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
+        }
+    }
+    
+    // 테이블뷰 화면에 표시 되기 직전에 호출
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == 3 {
+            cell.selectionStyle = .default
+//            cell.isUserInteractionEnabled = true
+        } else {
+            cell.selectionStyle = .none // 선택 스타일을 none으로 설정하여 선택 효과를 막음
+//            cell.isUserInteractionEnabled = false // 셀의 사용자 상호작용을 비활성화
         }
         
     }

@@ -9,9 +9,9 @@ import UIKit
 import MapKit
 import SnapKit
 
-class MapTableViewCell: BaseTableViewCell {
+final class MapTableViewCell: BaseTableViewCell {
     
-    let bgView = {
+    private let bgView = {
         let view = UIView()
         view.backgroundColor = .black.withAlphaComponent(0.2)
         view.layer.cornerRadius = 10
@@ -19,9 +19,8 @@ class MapTableViewCell: BaseTableViewCell {
     }()
     
     let headerView = HeaderView()
-    
-    
-    let mapView = MKMapView()
+
+    private let mapView = MKMapView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

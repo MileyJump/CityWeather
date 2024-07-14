@@ -26,7 +26,7 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
         
     }
     
-    func timeConversion(_ dateString: String) -> String {
+    private func timeConversion(_ dateString: String) -> String {
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
         

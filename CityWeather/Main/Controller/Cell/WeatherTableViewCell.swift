@@ -7,9 +7,9 @@
 
 import UIKit
 
-class WeatherTableViewCell: BaseTableViewCell {
+final class WeatherTableViewCell: BaseTableViewCell {
     
-    let bgView = {
+    private let bgView = {
         let view = UIView()
         view.backgroundColor = .black.withAlphaComponent(0.2)
         view.layer.cornerRadius = 10

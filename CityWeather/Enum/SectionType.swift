@@ -8,12 +8,15 @@
 import UIKit
 
 enum SectionType: CaseIterable {
+    case header
     case timeInterval
     case dailyInterval
     case location
     
     var sectionTitle: String {
         switch self {
+        case .header:
+            return ""
         case .timeInterval:
             return "3시간 간격의 일기예보"
         case .dailyInterval:
@@ -25,6 +28,8 @@ enum SectionType: CaseIterable {
     
     var sectionImage: String {
         switch self {
+        case .header:
+            return ""
         case .timeInterval:
             return "calendar"
         case .dailyInterval:

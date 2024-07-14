@@ -7,41 +7,35 @@
 
 import UIKit
 
-class CustomHeaderView: BaseTableViewCell {
+final class CustomHeaderView: BaseTableViewCell {
     
-        private let currentLocationLabel = {
-            let label = UILabel()
-            label.text = "Jeju City"
-            label.font = UIFont.systemFont(ofSize: 35, weight: .regular)
-            label.textColor = .white
-            label.textAlignment = .center
-            return label
-        }()
+    private let currentLocationLabel = {
+        let label = UILabel()
+        label.text = "Jeju City"
+        label.font = UIFont.systemFont(ofSize: 35, weight: .regular)
+        label.textColor = .white
+        label.textAlignment = .center
+        return label
+    }()
     
-        private let currentTemperatureLabel = {
-            let label = UILabel()
-            label.text = "5.9°"
-            label.font = UIFont.systemFont(ofSize: 90, weight: .thin)
-            label.textColor = .white
-            label.textAlignment = .center
-            return label
-        }()
+    private let currentTemperatureLabel = {
+        let label = UILabel()
+        label.text = "5.9°"
+        label.font = UIFont.systemFont(ofSize: 90, weight: .thin)
+        label.textColor = .white
+        label.textAlignment = .center
+        return label
+    }()
     
-        private let weatherLabel = {
-            let label = UILabel()
-            label.text = "Broken Clouds \n 최고: 7.0°  |  최저: -4.2°"
-            label.numberOfLines = 0
-            label.font = .systemFont(ofSize: 22)
-            label.textColor = .white
-            label.textAlignment = .center
-            return label
-        }()
-    
-//    override init(reuseIdentifier: String?) {
-//        super.init(reuseIdentifier: reuseIdentifier)
-//        configureHierarchy()
-//        configureLayout()
-//    }
+    private let weatherLabel = {
+        let label = UILabel()
+        label.text = "Broken Clouds \n 최고: 7.0°  |  최저: -4.2°"
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 22)
+        label.textColor = .white
+        label.textAlignment = .center
+        return label
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

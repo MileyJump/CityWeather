@@ -9,16 +9,14 @@ import UIKit
 import Kingfisher
 import SnapKit
 
-class DailyforecastTableViewCell: BaseTableViewCell {
+final class DailyforecastTableViewCell: BaseTableViewCell {
     
-    let dayLabel = UILabel()
+    private let dayLabel = UILabel()
     
-    let iconImageView = UIImageView()
+    private let iconImageView = UIImageView()
     
-    let minimum = UILabel()
-    let maximum = UILabel()
-    
-    
+    private let minimum = UILabel()
+    private let maximum = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,7 +40,7 @@ class DailyforecastTableViewCell: BaseTableViewCell {
         maximum.text = "최고 \(data.temperatureCelsius.temp_max)"
     }
     
-    func dayConversion(_ dateString: String) -> String {
+    private func dayConversion(_ dateString: String) -> String {
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
         dateFormat.locale = Locale(identifier: "ko_KR")

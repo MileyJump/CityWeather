@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ConditionsCollectionViewCell: BaseCollectionViewCell {
+final class ConditionsCollectionViewCell: BaseCollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
