@@ -102,6 +102,7 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
         weatherTableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         weatherTableView.register(DailyIntervalTableViewCell.self, forCellReuseIdentifier: DailyIntervalTableViewCell.identifier)
         weatherTableView.register(MapTableViewCell.self, forCellReuseIdentifier: MapTableViewCell.identifier)
+        weatherTableView.register(ConditionsTableViewCell.self, forCellReuseIdentifier: ConditionsTableViewCell.identifier)
         
         
         //        weatherTableView.rowHeight = UITableView.automaticDimension
@@ -148,6 +149,11 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.identifier, for: indexPath) as? MapTableViewCell else { fatalError("DailyIntervalTableViewCell 다운캐스팅 실패") }
             cell.headerView.configureHeader(type: sectionType)
             return cell
+        case 4:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ConditionsTableViewCell.identifier, for: indexPath) as? ConditionsTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
+//            cell.headerView.configureHeader(type: sectionType)
+            return cell
+            
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.identifier, for: indexPath) as? MapTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
             return cell
@@ -174,8 +180,11 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none // 선택 스타일을 none으로 설정하여 선택 효과를 막음
 //            cell.isUserInteractionEnabled = false // 셀의 사용자 상호작용을 비활성화
         }
-        
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        
+//    }
 }
 
 // MARK: - CollectionView Delegate, DataSource
