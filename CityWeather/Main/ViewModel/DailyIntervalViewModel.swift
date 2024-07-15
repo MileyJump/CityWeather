@@ -14,12 +14,13 @@ final class DailyIntervalViewModel {
     var outputForecastListData: Observable<[DailyForecast]> = Observable([])
     
     init() {
-        bind()
+        bindData()
     }
     
-    private func bind() {
+    private func bindData() {
         // input 이 자식! 신호 받았니? 그러면 output에 값 좀 줘라 ~
-        inputForecastListData.bind { value in
+        inputForecastListData.bind { [weak self] value in
+            guard let self = self else { return }
             self.outputForecastListData.value = value
         }
     }

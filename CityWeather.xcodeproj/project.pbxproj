@@ -49,6 +49,7 @@
 		B01B2E6D2C43B7B800B981FC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E6C2C43B7B800B981FC /* MapViewController.swift */; };
 		B01B2E782C44FEFD00B981FC /* ConditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E772C44FEFD00B981FC /* ConditionViewModel.swift */; };
 		B01B2E7A2C4528D400B981FC /* DailyIntervalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E792C4528D400B981FC /* DailyIntervalViewModel.swift */; };
+		B01B2E7C2C45313100B981FC /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E7B2C45313100B981FC /* MapViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +94,7 @@
 		B01B2E6C2C43B7B800B981FC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B01B2E772C44FEFD00B981FC /* ConditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionViewModel.swift; sourceTree = "<group>"; };
 		B01B2E792C4528D400B981FC /* DailyIntervalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyIntervalViewModel.swift; sourceTree = "<group>"; };
+		B01B2E7B2C45313100B981FC /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 				B01B2E422C41492E00B981FC /* WeatherViewModel.swift */,
 				B01B2E772C44FEFD00B981FC /* ConditionViewModel.swift */,
 				B01B2E792C4528D400B981FC /* DailyIntervalViewModel.swift */,
+				B01B2E7B2C45313100B981FC /* MapViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				B01B2E3F2C41406700B981FC /* DailyforecastTableViewCell.swift in Sources */,
 				B01B2E7A2C4528D400B981FC /* DailyIntervalViewModel.swift in Sources */,
 				B01B2E152C3EC51200B981FC /* APIManager.swift in Sources */,
+				B01B2E7C2C45313100B981FC /* MapViewModel.swift in Sources */,
 				B01B2E0B2C3EACF300B981FC /* BaseCollectionViewCell.swift in Sources */,
 				B01B2E052C3EAC5500B981FC /* WeatherCollectionViewCell.swift in Sources */,
 				B01B2E782C44FEFD00B981FC /* ConditionViewModel.swift in Sources */,
@@ -576,6 +580,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q35ZG4845H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityWeather/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -607,6 +612,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q35ZG4845H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityWeather/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

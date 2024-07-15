@@ -48,6 +48,7 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
     
     @objc private func mapButtonTapped() {
         let vc = MapViewController()
+        vc.viewModel.inputLocationData.value = viewModel.outputCurrentData.value
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -186,9 +187,8 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 3 {
             let vc = MapViewController()
+            vc.viewModel.inputLocationData.value = viewModel.outputCurrentData.value
             navigationController?.pushViewController(vc, animated: true)
-            tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
-        } else {
             tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
         }
     }

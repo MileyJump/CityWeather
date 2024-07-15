@@ -24,7 +24,8 @@ final class WeatherViewModel {
     
     // inputWeatherData가 변경되면 API 요청
     private func weatherRequest() {
-        inputWeatherData.bind { data in
+        inputWeatherData.bind { [weak self]data in
+            guard let self = self else { return }
             guard let data = data else { return }
             let id = data.0
             let lat = data.1
