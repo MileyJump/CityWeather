@@ -21,28 +21,24 @@ final class CitySearchViewModel {
     }
     
     
-    
-    // 모델로 뺄까 말까..
+    // 아 그냥 모델로 뺄까 ..?
     private func parseCitiesJSON() {
-        // Bundle.main을 사용하여 JSON 파일의 경로를 가져옵니다.
+        // Bundle.main을 사용하여 JSON 파일의 경로를 가져오기
         guard let jsonFilePath = Bundle.main.path(forResource: "CityList", ofType: "json") else {
             fatalError("CityList.json 파일을 찾을 수 없습니다.")
         }
         
-        // 파일 경로에서 데이터를 읽어옵니다.
+        // 파일 경로에서 데이터를 읽어옵니당 ~
         do {
             let jsonData = try Data(contentsOf: URL(fileURLWithPath: jsonFilePath))
             
             // JSON 데이터를 구조체 배열로 디코딩
             let cities = try JSONDecoder().decode([CityListModel].self, from: jsonData)
             
+            // 디코딩 성공 시, CityListModel 배열에 넣기, 필터 배열도(검색용)!!
             outputCityListData.value = cities
             outputFilteredCityListData.value = cities
-            
-            // 디코딩 성공 시, cities 배열에 데이터가 들어있음
-//            for city in cities {
-//                print("\(city.name): (\(city.country)")
-//            }
+   
         } catch {
             print("Error decoding JSON: \(error.localizedDescription)")
         }
@@ -54,15 +50,14 @@ final class CitySearchViewModel {
             return
         }
         
-        guard let cities = outputCityListData.value else { return }
+        guard let cities = outputCityListData.value else { return } // 옵셔널 해제 합시당
         
         let filteredCities = cities.filter { city in
+            // 필터!! 이름이랑 국가를 소문자로(lowercased) 변환하여 포함 여부 찾기 -> 대소문자 구분 없애기
             return city.name.lowercased().contains(searchText.lowercased()) || city.country.lowercased().contains(searchText.lowercased())
         }
-        
+        // 필터 다 됐어? ㅇㅋㅇㅋ 담아버려
         outputFilteredCityListData.value = filteredCities
-  
     }
-    
 }
 

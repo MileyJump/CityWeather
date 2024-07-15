@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class HeaderView: BaseView {
+final class HeaderView: BaseView {
     
     let iconImageViwe = UIImageView()
     let titleLabel = UILabel()

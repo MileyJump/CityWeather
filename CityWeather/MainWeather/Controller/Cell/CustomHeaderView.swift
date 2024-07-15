@@ -74,8 +74,5 @@ final class CustomHeaderView: BaseTableViewCell {
             make.top.equalTo(currentTemperatureLabel.snp.bottom).inset(10)
             make.centerX.equalTo(currentLocationLabel)
         }
-        
     }
-    
-    
 }

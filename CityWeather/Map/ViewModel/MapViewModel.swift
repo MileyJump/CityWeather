@@ -17,12 +17,10 @@ final class MapViewModel {
         bindData()
     }
     
-    
     private func bindData() {
         inputLocationData.bind { [weak self] value in
             guard let self = self else { return }
             self.outputLocationData.value = value
         }
     }
-    
 }

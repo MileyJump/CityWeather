@@ -35,7 +35,7 @@ final class ConditionsTableViewCell: BaseTableViewCell {
         bind()
     }
     
-    func bind() {
+    private func bind() {
         viewModel.outputWeatherData.bind { weather in
             self.collectionView.reloadData()
             

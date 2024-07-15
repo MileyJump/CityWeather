@@ -26,7 +26,7 @@ final class DailyIntervalTableViewCell: BaseTableViewCell {
         bind()
     }
     
-    func bind() {
+    private func bind() {
         viewModel.outputForecastListData.bind { _ in
             self.dailyTableView.reloadData()
         }

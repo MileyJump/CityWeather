@@ -10,9 +10,9 @@ import SnapKit
 
 class CitySearchViewController: BaseViewController {
     
-    let searchBar = UISearchBar()
-    let tableView = UITableView()
-    let viewModel = CitySearchViewModel()
+    private let searchBar = UISearchBar()
+    private let tableView = UITableView()
+    private let viewModel = CitySearchViewModel()
     var delegate: WeatherIdDelegate?
     
     override func viewDidLoad() {
@@ -29,13 +29,13 @@ class CitySearchViewController: BaseViewController {
         navigationController?.isToolbarHidden = false
     }
     
-    func bindData() {
+    private func bindData() {
         viewModel.outputFilteredCityListData.bind { _ in
             self.tableView.reloadData()
         }
     }
     
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.tintColor = .white
         
@@ -46,8 +46,9 @@ class CitySearchViewController: BaseViewController {
         let ellipsisButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(ellipsisButtonTapped))
         navigationItem.rightBarButtonItem = ellipsisButton
     }
-    @objc func ellipsisButtonTapped() {
-        
+    
+    @objc private func ellipsisButtonTapped() {
+        print(#function)
     }
     
     override func configureHierarchy() {
@@ -81,23 +82,15 @@ class CitySearchViewController: BaseViewController {
         
         tableView.separatorStyle = .none
     }
-    
-    
-    
 }
 
 extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        guard let cityList = viewModel.outputCityListData.value else { return 0 }
-//        return cityList.count
         return viewModel.outputFilteredCityListData.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CitySearchTableViewCell.identifier, for: indexPath) as? CitySearchTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
-//        if let cityList = viewModel.outputCityListData.value {
-//            cell.configureCell(cityList[indexPath.row])
-//        }
          let cityList = viewModel.outputFilteredCityListData.value
             cell.configureCell(cityList[indexPath.row])
         
@@ -107,7 +100,6 @@ extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cityData = viewModel.outputFilteredCityListData.value[indexPath.row]
         delegate?.idUpdateDelegate(id: cityData.id, lat: cityData.coord.lat, lon: cityData.coord.lon)
-//        NotificationCenter.default.post(name: Notification.Name.weatherID, object: id)
         tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
         
         navigationController?.popViewController(animated: true)
@@ -117,7 +109,5 @@ extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
 extension CitySearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.filterCities(searchText: searchText)
-        
-        
     }
 }

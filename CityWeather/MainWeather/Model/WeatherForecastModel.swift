@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct WeatherForecaseModel: Decodable {
+struct WeatherForecastModel: Decodable {
     let cod: String
     let message: Int
     let cnt: Int
-    let list: [ForecaseList]
+    let list: [ForecastList]
     let city: City
 }
 
-struct ForecaseList: Decodable {
+struct ForecastList: Decodable {
     let dt: Int
     let main: Main
     let weather: [Weather]
@@ -27,8 +27,8 @@ struct ForecaseList: Decodable {
     let sys: Sys?
     let dt_txt: String
     
-    var temperatureCelsius: TemperatureCelsiusForecase {
-        return TemperatureCelsiusForecase(main: main)
+    var temperatureCelsius: TemperatureCelsiusForecast {
+        return TemperatureCelsiusForecast(main: main)
     }
 }
 
@@ -96,7 +96,7 @@ struct Coord: Decodable {
 
 
 // 섭씨 온도로 변환
-struct TemperatureCelsiusForecase {
+struct TemperatureCelsiusForecast {
     var temp, temp_min, temp_max: String
     
     init(main: Main) {
@@ -121,6 +121,4 @@ struct DailyForecast {
         }
         return url
     }
-    
-    
 }

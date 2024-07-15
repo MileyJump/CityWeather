@@ -60,16 +60,12 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
     
     private func bindData(id: Int, lat: Double, lon: Double) {
         viewModel.inputWeatherData.value = (id, lat, lon)
-        
 
         viewModel.outputCurrentData.bind { _ in
             self.weatherTableView.reloadData()
         }
         
-//        viewModel.outputForecaseData.bind { value in
-        viewModel.outputDailyForecaseData.bind { value in
-//            self.weatherTableView.reloadData()
-            
+        viewModel.outputDailyForecastData.bind { value in
             guard let cell = self.weatherTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? WeatherTableViewCell else { return }
             cell.collectionView.reloadData()
         }
@@ -97,8 +93,6 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
         self.toolbarItems = barItems
         
         navigationItem.backButtonTitle = ""
-        
-        
     }
     
     override func configureHierarchy() {
@@ -159,7 +153,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 2 :
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DailyIntervalTableViewCell.identifier, for: indexPath) as? DailyIntervalTableViewCell else { fatalError("DailyIntervalTableViewCell 다운캐스팅 실패") }
-            if let value = viewModel.outputDailyForecaseData.value {
+            if let value = viewModel.outputDailyForecastData.value {
                 cell.viewModel.inputForecastListData.value = value
             }
             
@@ -174,7 +168,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 4:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ConditionsTableViewCell.identifier, for: indexPath) as? ConditionsTableViewCell else { fatalError("WeatherTableViewCell 다운캐스팅 실패") }
-            cell.viewModel.outputWeatherData.value = viewModel.outputForecaseData.value
+            cell.viewModel.outputWeatherData.value = viewModel.outputForecastData.value
             return cell
             
         default:
@@ -225,13 +219,13 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return viewModel.outputForecaseData.value?.count ?? 5
-        return viewModel.outputDailyForecaseData.value?.count ?? 6
+//        return viewModel.outputForecastData.value?.count ?? 5
+        return viewModel.outputDailyForecastData.value?.count ?? 6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCollectionViewCell.identifier, for: indexPath) as? WeatherCollectionViewCell else { fatalError("WeatherCollectionViewCell 다운캐스팅 실패") }
-        guard let value = viewModel.outputForecaseData.value else { return cell }
+        guard let value = viewModel.outputForecastData.value else { return cell }
         cell.configureCell(data: value[indexPath.row])
         return cell
     }

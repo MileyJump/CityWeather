@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct CityListModel: Codable {
     let id: Int
     let name: String

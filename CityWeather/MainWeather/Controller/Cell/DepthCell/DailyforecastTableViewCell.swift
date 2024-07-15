@@ -22,7 +22,6 @@ final class DailyforecastTableViewCell: BaseTableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    
     override func configureHierarchy() {
         contentView.addSubview(dayLabel)
         contentView.addSubview(iconImageView)
@@ -30,19 +29,12 @@ final class DailyforecastTableViewCell: BaseTableViewCell {
         contentView.addSubview(maximum)
     }
     
-    
-    
     func configureCell(data: DailyForecast) {
         print(data.date)
         dayLabel.text = dayConversion(data.date)
-//        dayLabel.text = dayConversion(data.dt_txt)
-
         iconImageView.kf.setImage(with: data.iconExtraction)
-//        iconImageView.kf.setImage(with: data.weather[0].iconExtraction)
-//        minimum.text = "최저 \(data.temperatureCelsius.temp_min)"
         let tempmin = String(format: "%.1f", data.temp_min - 273.15) + "°"
         minimum.text = "최저 \(tempmin)"
-//        maximum.text = "최고 \(data.temperatureCelsius.temp_max)"
         let tempmax = String(format: "%.1f", data.temp_max - 273.15) + "°"
         maximum.text = "최고 \(tempmax)"
     }

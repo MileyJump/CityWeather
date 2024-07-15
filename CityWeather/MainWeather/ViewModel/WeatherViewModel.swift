@@ -11,8 +11,8 @@ final class WeatherViewModel {
     
     var inputWeatherData: Observable<(Int, Double, Double)?> = Observable(nil)
     
-    var outputForecaseData: Observable<[ForecaseList]?> = Observable(nil)
-    var outputDailyForecaseData: Observable<[DailyForecast]?> = Observable(nil)
+    var outputForecastData: Observable<[ForecastList]?> = Observable(nil)
+    var outputDailyForecastData: Observable<[DailyForecast]?> = Observable(nil)
     
     var outputCurrentData: Observable<CurrentWeatherModel?> = Observable(nil)
     
@@ -32,12 +32,12 @@ final class WeatherViewModel {
             let lon = data.2
             
             // API 요청 후 필터링된 데이터를 저장하도록 수정
-            self.callRequest(api: WeatherRequest.forecase(lat: lat, lon: lon), weatherType: WeatherForecaseModel.self) { forecase in
-                if let forecase = forecase {
-                    self.outputForecaseData.value = forecase.list
-                    // 필터링된 일별 날씨 데이터를 추출하여 outputForecaseData에 저장
-                    let dailtForecasts = self.createDailyForecasts(from: forecase.list)
-                    self.outputDailyForecaseData.value = dailtForecasts
+            self.callRequest(api: WeatherRequest.forecast(lat: lat, lon: lon), weatherType: WeatherForecastModel.self) { forecast in
+                if let forecast = forecast {
+                    self.outputForecastData.value = forecast.list
+                    // 필터링된 일별 날씨 데이터를 추출하여 outputForecastData에 저장
+                    let dailtForecasts = self.createDailyForecasts(from: forecast.list)
+                    self.outputDailyForecastData.value = dailtForecasts
                 }
             }
             // 현재 날씨 데이터를 요청하고 outputCurrentData에 저장
@@ -49,9 +49,6 @@ final class WeatherViewModel {
         }
         
     }
-    //    37.51845 lat
-    //    126.88494 lon
-    //    1835847 id
 
     private func callRequest<T: Decodable>(api: WeatherRequest, weatherType: T.Type, completion: @escaping (T?) -> Void) {
         WeatherManager.shared.callRequest(api: api, modelType: weatherType) { (results: Result<T?, ErrorCode>) in
@@ -66,8 +63,8 @@ final class WeatherViewModel {
     }
     
     // 일별 날씨 예보 생성 메서드
-    private func createDailyForecasts(from forecastList: [ForecaseList]) -> [DailyForecast] {
-        var dailyForecasts = [String: [ForecaseList]]()
+    private func createDailyForecasts(from forecastList: [ForecastList]) -> [DailyForecast] {
+        var dailyForecasts = [String: [ForecastList]]()
         
         // 날짜별로 예보 데이터를 그룹화
         for forecast in forecastList {
@@ -89,7 +86,6 @@ final class WeatherViewModel {
             let weatherDescription = forecasts.first?.weather.first?.description ?? ""
             dailyForecastsResult.append(DailyForecast(date: date, temp: averageTemp, temp_min: averageTempMin, temp_max: averageTempMax, icon: weatherIcon, description: weatherDescription))
         }
-        
         return dailyForecastsResult
     }
     

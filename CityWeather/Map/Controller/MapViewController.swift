@@ -30,14 +30,14 @@ final class MapViewController: BaseViewController {
         }
     }
     
-    func bindData() {
+    private func bindData() {
         viewModel.outputLocationData.bind { value in
             guard let value = value else { return }
             self.configureMapLocation(data: value)
         }
     }
     
-    func configureMapLocation(data: CurrentWeatherModel) {
+    private func configureMapLocation(data: CurrentWeatherModel) {
         // 기본 위치 설정 (예: 서울 좌표)
         let initialLocation = CLLocation(latitude: data.coord.lat, longitude: data.coord.lon)
         centerMapOnLocation(location: initialLocation)

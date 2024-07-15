@@ -18,7 +18,7 @@ final class ConditionsCollectionViewCell: BaseCollectionViewCell {
     
     let headerView = HeaderView()
     
-    let informationLabel = {
+    private let informationLabel = {
         let label = UILabel()
         label.textColor = .white
         label.text = "1.35m/s"
@@ -26,7 +26,7 @@ final class ConditionsCollectionViewCell: BaseCollectionViewCell {
         return label
     }()
     
-    let pressureLabel = {
+    private let pressureLabel = {
         let label = UILabel()
         label.textColor = .white
         label.text = "hap"
@@ -34,7 +34,7 @@ final class ConditionsCollectionViewCell: BaseCollectionViewCell {
         return label
     }()
     
-    let addInformationLabel = {
+    private let addInformationLabel = {
         let label = UILabel()
         label.textColor = .white
         label.text = "강풍: 4.42m/s"

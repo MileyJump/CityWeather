@@ -19,7 +19,7 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
         super.init(frame: frame)
     }
     
-    func configureCell(data: ForecaseList) {
+    func configureCell(data: ForecastList) {
         timeLabel.text = timeConversion(data.dt_txt)
         weatherImageView.kf.setImage(with: data.weather[0].iconExtraction)
         tempLabel.text = "\(data.temperatureCelsius.temp)"
