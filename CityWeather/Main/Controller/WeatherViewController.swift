@@ -159,7 +159,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         case 2 :
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DailyIntervalTableViewCell.identifier, for: indexPath) as? DailyIntervalTableViewCell else { fatalError("DailyIntervalTableViewCell 다운캐스팅 실패") }
             if let value = viewModel.outputDailyForecaseData.value {
-                cell.weatherList = value
+                cell.viewModel.inputForecastListData.value = value
             }
             
             cell.headerView.configureHeader(type: sectionType)

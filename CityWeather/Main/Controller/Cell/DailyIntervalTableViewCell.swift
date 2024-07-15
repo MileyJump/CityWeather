@@ -9,11 +9,7 @@ import UIKit
 
 final class DailyIntervalTableViewCell: BaseTableViewCell {
     
-    var weatherList: [DailyForecast] = [] {
-        didSet {
-            dailyTableView.reloadData()
-        }
-    }
+    var viewModel = DailyIntervalViewModel()
     
     private let bgView = {
         let view = UIView()
@@ -27,7 +23,13 @@ final class DailyIntervalTableViewCell: BaseTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        bind()
+    }
+    
+    func bind() {
+        viewModel.outputForecastListData.bind { _ in
+            self.dailyTableView.reloadData()
+        }
     }
     
     override func configureHierarchy() {
@@ -67,12 +69,12 @@ final class DailyIntervalTableViewCell: BaseTableViewCell {
 
 extension DailyIntervalTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weatherList.count
+        return viewModel.outputForecastListData.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DailyforecastTableViewCell.identifier, for: indexPath) as! DailyforecastTableViewCell
-        cell.configureCell(data: weatherList[indexPath.row])
+        cell.configureCell(data: viewModel.outputForecastListData.value[indexPath.row])
         return cell
     }
     

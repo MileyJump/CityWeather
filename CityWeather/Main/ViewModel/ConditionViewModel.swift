@@ -10,6 +10,5 @@ import Foundation
 final class ConditionViewModel {
     
     var outputWeatherData: Observable<[ForecaseList]?> = Observable(nil)
-    
-    
+
 }
