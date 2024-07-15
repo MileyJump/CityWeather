@@ -80,9 +80,11 @@ final class ConditionsCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func configureCell(_ data: CurrentWeatherModel ) {
-        
-    }
+    func configureCell(information: String, pressure: String, value: String) {
+        informationLabel.text = "\(information)"
+        pressureLabel.text = pressure
+        addInformationLabel.text = value
+        }
     
     override func configureView() {
         headerView.titleLabel.textColor = .systemGray2

@@ -9,7 +9,7 @@ import UIKit
 
 final class DailyIntervalTableViewCell: BaseTableViewCell {
     
-    var weatherList: [ForecaseList] = [] {
+    var weatherList: [DailyForecast] = [] {
         didSet {
             dailyTableView.reloadData()
         }

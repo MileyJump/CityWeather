@@ -105,3 +105,22 @@ struct TemperatureCelsiusForecase {
         self.temp_max = String(format: "%.1f", main.temp - 273.15) + "°"
     }
 }
+
+
+struct DailyForecast {
+    let date: String
+    let temp: Double
+    let temp_min: Double
+    let temp_max: Double
+    let icon: String
+    let description: String
+    
+    var iconExtraction: URL? {
+        guard let url = URL(string: "https://openweathermap.org/img/wn/\(icon)@2x.png") else {
+            return nil
+        }
+        return url
+    }
+    
+    
+}

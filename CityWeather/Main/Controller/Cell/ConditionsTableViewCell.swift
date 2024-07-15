@@ -9,6 +9,8 @@ import UIKit
 
 final class ConditionsTableViewCell: BaseTableViewCell {
     
+    let viewModel = ConditionViewModel()
+    
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
     
     private func layout() -> UICollectionViewLayout {
@@ -26,6 +28,18 @@ final class ConditionsTableViewCell: BaseTableViewCell {
         layout.scrollDirection = .vertical
         
         return layout
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        bind()
+    }
+    
+    func bind() {
+        viewModel.outputWeatherData.bind { weather in
+            self.collectionView.reloadData()
+            
+        }
     }
     
     override func configureHierarchy() {
@@ -58,6 +72,20 @@ extension ConditionsTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConditionsCollectionViewCell.identifier, for: indexPath) as? ConditionsCollectionViewCell else { fatalError("ConditionsCollectionViewCell 실패 ")}
         cell.headerView.titleLabel.text = cellCase.sectionTitle
         cell.headerView.iconImageViwe.image = UIImage(systemName: cellCase.sectionImage)
+        
+        guard let value = viewModel.outputWeatherData.value?[0] else { return cell }
+        switch indexPath.item {
+        case 0:
+            cell.configureCell(information: "\(value.wind.speed)m/s", pressure: "", value: "강풍:\(value.wind.gust)m/s")
+        case 1:
+            cell.configureCell(information: "\(value.clouds.all)%", pressure: "", value: "")
+        case 2:
+            cell.configureCell(information: "\(value.main.pressure)", pressure: "hpa", value: "")
+        case 3:
+            cell.configureCell(information: "\(value.main.humidity)%", pressure: "", value: "")
+        default:
+            print("-")
+        }
         return cell
     }
 }

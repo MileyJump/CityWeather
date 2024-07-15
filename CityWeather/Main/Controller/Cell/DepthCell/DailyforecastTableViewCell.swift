@@ -32,17 +32,24 @@ final class DailyforecastTableViewCell: BaseTableViewCell {
     
     
     
-    func configureCell(data: ForecaseList) {
-        dayLabel.text = dayConversion(data.dt_txt)
-        // set을 통해 요일 중복 ... 제거하기 (maybe)
-        iconImageView.kf.setImage(with: data.weather[0].iconExtraction)
-        minimum.text = "최저 \(data.temperatureCelsius.temp_min)"
-        maximum.text = "최고 \(data.temperatureCelsius.temp_max)"
+    func configureCell(data: DailyForecast) {
+        print(data.date)
+        dayLabel.text = dayConversion(data.date)
+//        dayLabel.text = dayConversion(data.dt_txt)
+
+        iconImageView.kf.setImage(with: data.iconExtraction)
+//        iconImageView.kf.setImage(with: data.weather[0].iconExtraction)
+//        minimum.text = "최저 \(data.temperatureCelsius.temp_min)"
+        let tempmin = String(format: "%.1f", data.temp_min - 273.15) + "°"
+        minimum.text = "최저 \(tempmin)"
+//        maximum.text = "최고 \(data.temperatureCelsius.temp_max)"
+        let tempmax = String(format: "%.1f", data.temp_max - 273.15) + "°"
+        maximum.text = "최고 \(tempmax)"
     }
     
     private func dayConversion(_ dateString: String) -> String {
         let dateFormat = DateFormatter()
-        dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormat.dateFormat = "yyyy-MM-dd"
         dateFormat.locale = Locale(identifier: "ko_KR")
         
         if let date = dateFormat.date(from: dateString) {
