@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+
 struct CurrentWeatherModel: Decodable {
     let coord: CurrentCoord
     let weather: [CurrentWeather]
@@ -23,7 +25,7 @@ struct CurrentWeatherModel: Decodable {
     let cod: Int
     
     var temperatureCelsius: TemperatureCelsius {
-        return TemperatureCelsius(main: main)
+        return TemperatureCelsius(temp: main.temp, temp_min: main.temp_min, temp_max: main.temp_max)
     }
 }
 
@@ -60,13 +62,4 @@ struct CurrentSys: Decodable {
 }
     
 
-// 섭씨 온도로 변환
-struct TemperatureCelsius {
-    var temp, temp_min, temp_max: String
-    
-    init(main: CurrentMain) {
-        self.temp = String(format: "%.1f", main.temp - 273.15) + "°"
-        self.temp_min = String(format: "%.1f", main.temp - 273.15) + "°"
-        self.temp_max = String(format: "%.1f", main.temp - 273.15) + "°"
-    }
-}
+

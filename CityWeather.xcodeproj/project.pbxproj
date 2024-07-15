@@ -47,6 +47,7 @@
 		B01B2E782C44FEFD00B981FC /* ConditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E772C44FEFD00B981FC /* ConditionViewModel.swift */; };
 		B01B2E7A2C4528D400B981FC /* DailyIntervalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E792C4528D400B981FC /* DailyIntervalViewModel.swift */; };
 		B01B2E7C2C45313100B981FC /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2E7B2C45313100B981FC /* MapViewModel.swift */; };
+		B0FC37582C45672300D1ABEE /* WeatherUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC37572C45672300D1ABEE /* WeatherUtility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,7 @@
 		B01B2E772C44FEFD00B981FC /* ConditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionViewModel.swift; sourceTree = "<group>"; };
 		B01B2E792C4528D400B981FC /* DailyIntervalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyIntervalViewModel.swift; sourceTree = "<group>"; };
 		B01B2E7B2C45313100B981FC /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		B0FC37572C45672300D1ABEE /* WeatherUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUtility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +207,7 @@
 			children = (
 				B01B2E1C2C3EC87800B981FC /* WeatherForecastModel.swift */,
 				B01B2E452C41660A00B981FC /* CurrentWeatherModel.swift */,
+				B0FC37572C45672300D1ABEE /* WeatherUtility.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				B01B2E2F2C411A7F00B981FC /* SectionType.swift in Sources */,
 				B01B2DFB2C3E9DA600B981FC /* BaseViewController.swift in Sources */,
 				B01B2E652C42C5A900B981FC /* MapTableViewCell.swift in Sources */,
+				B0FC37582C45672300D1ABEE /* WeatherUtility.swift in Sources */,
 				B01B2E3A2C41323100B981FC /* BaseView.swift in Sources */,
 				B01B2DE72C3E6C5F00B981FC /* AppDelegate.swift in Sources */,
 				B01B2DE92C3E6C5F00B981FC /* SceneDelegate.swift in Sources */,

@@ -33,10 +33,8 @@ final class DailyforecastTableViewCell: BaseTableViewCell {
         print(data.date)
         dayLabel.text = dayConversion(data.date)
         iconImageView.kf.setImage(with: data.iconExtraction)
-        let tempmin = String(format: "%.1f", data.temp_min - 273.15) + "°"
-        minimum.text = "최저 \(tempmin)"
-        let tempmax = String(format: "%.1f", data.temp_max - 273.15) + "°"
-        maximum.text = "최고 \(tempmax)"
+        minimum.text = "최저 \(data.tempMinCelsius)"
+        maximum.text = "최고 \(data.tempMaxCelsius)"
     }
     
     private func dayConversion(_ dateString: String) -> String {

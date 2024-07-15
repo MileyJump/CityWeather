@@ -27,9 +27,12 @@ struct ForecastList: Decodable {
     let sys: Sys?
     let dt_txt: String
     
-    var temperatureCelsius: TemperatureCelsiusForecast {
-        return TemperatureCelsiusForecast(main: main)
-    }
+//    var temperatureCelsius: TemperatureCelsiusForecast {
+//        return TemperatureCelsiusForecast(main: main)
+//    }
+    
+    
+    
 }
 
 struct Main: Decodable {
@@ -42,6 +45,11 @@ struct Main: Decodable {
     let grnd_level: Int
     let humidity: Int
     let temp_kf: Double
+    
+     
+    var temperatureCelsius: TemperatureCelsius {
+        return TemperatureCelsius(temp: temp, temp_min: temp_min, temp_max: temp_max)
+    }
     
 }
 
@@ -96,15 +104,15 @@ struct Coord: Decodable {
 
 
 // 섭씨 온도로 변환
-struct TemperatureCelsiusForecast {
-    var temp, temp_min, temp_max: String
-    
-    init(main: Main) {
-        self.temp = String(format: "%.1f", main.temp - 273.15) + "°"
-        self.temp_min = String(format: "%.1f", main.temp - 273.15) + "°"
-        self.temp_max = String(format: "%.1f", main.temp - 273.15) + "°"
-    }
-}
+//struct TemperatureCelsiusForecast {
+//    var temp, temp_min, temp_max: String
+//    
+//    init(main: Main) {
+//        self.temp = String(format: "%.1f", main.temp - 273.15) + "°"
+//        self.temp_min = String(format: "%.1f", main.temp - 273.15) + "°"
+//        self.temp_max = String(format: "%.1f", main.temp - 273.15) + "°"
+//    }
+//}
 
 
 struct DailyForecast {
@@ -119,4 +127,15 @@ struct DailyForecast {
         }
         return url
     }
+
+    var tempMinCelsius: String {
+        return TemperatureConverter.kelvinToCelsiusString(kelvin: temp_min)
+    }
+    
+    var tempMaxCelsius: String {
+        return TemperatureConverter.kelvinToCelsiusString(kelvin: temp_max)
+    }
+    
+   
+        
 }
