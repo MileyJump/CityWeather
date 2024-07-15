@@ -24,20 +24,20 @@ final class WeatherTableViewCell: BaseTableViewCell {
         let layout = UICollectionViewFlowLayout()
         let spacing: CGFloat = 10
         let inset: CGFloat = 15
-        let numberOfItemsPerRow: CGFloat = 5 // 한 줄에 보여질 아이템 개수
+        let numberOfItemsPerRow: CGFloat = 6 // 한 줄에 보여질 아이템 개수
         let totalSpacing = (2 * inset) + ((numberOfItemsPerRow) * spacing)
         
         let width = (UIScreen.main.bounds.width - totalSpacing) / numberOfItemsPerRow
         let height = UIScreen.main.bounds.height
         
-        layout.itemSize = CGSize(width: width, height: height)
+        layout.itemSize = CGSize(width: width, height: width * 2.5)
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = inset
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.scrollDirection = .horizontal
-        
         return layout
     }
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -56,11 +56,11 @@ final class WeatherTableViewCell: BaseTableViewCell {
         }
         
         headerView.snp.makeConstraints { make in
-            make.horizontalEdges.top.equalTo(bgView).inset(10)
-            make.height.equalTo(20)
+            make.horizontalEdges.top.equalTo(bgView).inset(5)
+            make.height.equalTo(10)
         }
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(5)
+            make.top.equalTo(headerView.snp.bottom)
             make.bottom.horizontalEdges.equalTo(bgView).inset(10)
         }
     }

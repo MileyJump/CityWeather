@@ -46,51 +46,31 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        timeLabel.backgroundColor = .red
+        contentView.backgroundColor = .clear
+        
         timeLabel.textAlignment = .center
         timeLabel.font = .systemFont(ofSize: 13)
         
-        weatherImageView.backgroundColor = .systemMint
-        
-//        tempLabel.backgroundColor = .systemPink
         tempLabel.textAlignment = .center
         tempLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         tempLabel.textColor = .white
-        contentView.backgroundColor = .clear
-        
     }
     
     override func configureLayout() {
         timeLabel.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview().inset(5)
-//            make.height.equalTo(20)
-            
-            make.bottom.equalToSuperview()
-            
+            make.top.horizontalEdges.equalToSuperview()
         }
         
 
-//        weatherImageView.snp.makeConstraints { make in
-//            make.top.equalTo(timeLabel.snp.bottom).offset(10)
-//            make.height.equalTo(weatherImageView.snp.width)
-//            
-//            make.horizontalEdges.equalToSuperview()
-            
-//            make.top.equalToSuperview()
-//            make.bottom.equalToSuperview()
-            
-//        }
-//        
-//        tempLabel.snp.makeConstraints { make in
-//            make.top.equalToSuperview()
-//            make.horizontalEdges.equalToSuperview()
-//            make.bottom.equalToSuperview()
-//            make.height.equalTo(10)
-            
-            //            make.top.equalTo(weatherImageView.snp.bottom).offset(10)
-            //            make.horizontalEdges.equalTo(timeLabel)
-//        }
+        weatherImageView.snp.makeConstraints { make in
+            make.top.equalTo(timeLabel.snp.bottom).offset(10)
+            make.height.equalTo(60)
+            make.horizontalEdges.equalToSuperview()
+        }
+        
+        tempLabel.snp.makeConstraints { make in
+            make.top.equalTo(weatherImageView.snp.bottom).offset(10)
+            make.bottom.horizontalEdges.equalToSuperview()
+        }
     }
- 
-  
 }

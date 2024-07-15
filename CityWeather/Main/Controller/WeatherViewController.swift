@@ -197,10 +197,10 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == 3 {
             cell.selectionStyle = .default
-//            cell.isUserInteractionEnabled = true
+            cell.isUserInteractionEnabled = true
         } else {
             cell.selectionStyle = .none // 선택 스타일을 none으로 설정하여 선택 효과를 막음
-//            cell.isUserInteractionEnabled = false // 셀의 사용자 상호작용을 비활성화
+            cell.isUserInteractionEnabled = false // 셀의 사용자 상호작용을 비활성화
         }
     }
     
@@ -212,7 +212,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         case .timeInterval:
             return 200
         case .dailyInterval:
-            return 300
+            return 240
         case .location:
             return 300
         case .conditions:
