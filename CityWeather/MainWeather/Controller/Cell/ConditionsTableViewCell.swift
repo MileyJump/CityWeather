@@ -80,12 +80,21 @@ extension ConditionsTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         case 1:
             cell.configureCell(information: "\(value.clouds.all)%", pressure: "", value: "")
         case 2:
-            cell.configureCell(information: "\(value.main.pressure)", pressure: "hpa", value: "")
+//            cell.configureCell(information: "\(value.main.pressure)", pressure: "hpa", value: "")
+            let formattedPressure = formatNumberWithComma(value.main.pressure)
+               cell.configureCell(information: formattedPressure, pressure: "hpa", value: "")
         case 3:
             cell.configureCell(information: "\(value.main.humidity)%", pressure: "", value: "")
         default:
-            print("-")
+            print("ConditionsTableViewCell -", #function)
         }
         return cell
+    }
+    
+    // 세자리마다 쉼표
+    func formatNumberWithComma(_ number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: number)) ?? "\(number)"
     }
 }
