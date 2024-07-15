@@ -64,27 +64,27 @@ final class WeatherViewModel {
     
     // 일별 날씨 예보 생성 메서드
     private func createDailyForecasts(from forecastList: [ForecastList]) -> [DailyForecast] {
-        var dailyForecasts = [String: [ForecastList]]()
+        var dailyForecasts = [String: [ForecastList]]() // 문자열을 키, 배열을 값으로 딕셔너리
         
         // 날짜별로 예보 데이터를 그룹화
-        for forecast in forecastList {
-            let date = forecast.dt_txt.split(separator: " ")[0]
-            let dateString = String(date)
-            if dailyForecasts[dateString] == nil {
+        for forecast in forecastList { // 받은 ForecastList를 반복문
+            let date = forecast.dt_txt.split(separator: " ")[0] // 공백을 기준으로 분리 : "2024-07-12 15:00:00" -> "2024-07-12"
+            let dateString = String(date) // 날짜를 문자열로 반환!
+            if dailyForecasts[dateString] == nil { // 해당 날짜에 해당하는 키가 없으면 빈 배열 초기화!!
                 dailyForecasts[dateString] = []
             }
-            dailyForecasts[dateString]?.append(forecast)
+            dailyForecasts[dateString]?.append(forecast) // 키 있으면 값 추가
         }
         
-        // 각 날짜별로 평균 기온과 날씨 설명을 계산하여 dailyForecasts 배열에 추가
-        var dailyForecastsResult = [DailyForecast]()
+        // 각 날짜별로 평균 기온을 계산하여 dailyForecasts 배열에 추가
+        var dailyForecastsResult = [DailyForecast]() // dailyForecastsResult을 초기화 (DailyForecast는 계산한 값이 들어갈 공간)
         for (date, forecasts) in dailyForecasts {
-            let averageTemp = forecasts.map { $0.main.temp }.reduce(0, +) / Double(forecasts.count)
+            //  forecast(값) 객체의 main.temp.. 값을 가져와 배열로 만들고, 배열의 모든 값을 더한 후 나누어 평균 값 구하기
             let averageTempMin = forecasts.map { $0.main.temp_min }.reduce(0, +) / Double(forecasts.count)
             let averageTempMax = forecasts.map { $0.main.temp_max }.reduce(0, +) / Double(forecasts.count)
-            let weatherIcon = forecasts.first?.weather.first?.icon ?? "star"
-            let weatherDescription = forecasts.first?.weather.first?.description ?? ""
-            dailyForecastsResult.append(DailyForecast(date: date, temp: averageTemp, temp_min: averageTempMin, temp_max: averageTempMax, icon: weatherIcon, description: weatherDescription))
+            let weatherIcon = forecasts.first?.weather.first?.icon ?? "star" // 아이콘은 그냥 첫 번째거 가져오기!! 없으면? 그냥 star 로
+            // 아까 생성한 빈 배열에 새 객체(데이터) 추가
+            dailyForecastsResult.append(DailyForecast(date: date, temp_min: averageTempMin, temp_max: averageTempMax, icon: weatherIcon))
         }
         return dailyForecastsResult
     }
