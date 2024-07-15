@@ -49,7 +49,7 @@ final class WeatherViewModel {
         }
         
     }
-
+    
     private func callRequest<T: Decodable>(api: WeatherRequest, weatherType: T.Type, completion: @escaping (T?) -> Void) {
         WeatherManager.shared.callRequest(api: api, modelType: weatherType) { (results: Result<T?, ErrorCode>) in
             switch results {
@@ -77,16 +77,18 @@ final class WeatherViewModel {
         }
         
         // 각 날짜별로 평균 기온을 계산하여 dailyForecasts 배열에 추가
-        var dailyForecastsResult = [DailyForecast]() // dailyForecastsResult을 초기화 (DailyForecast는 계산한 값이 들어갈 공간)
-        for (date, forecasts) in dailyForecasts {
-            //  forecast(값) 객체의 main.temp.. 값을 가져와 배열로 만들고, 배열의 모든 값을 더한 후 나누어 평균 값 구하기
-            let averageTempMin = forecasts.map { $0.main.temp_min }.reduce(0, +) / Double(forecasts.count)
-            let averageTempMax = forecasts.map { $0.main.temp_max }.reduce(0, +) / Double(forecasts.count)
-            let weatherIcon = forecasts.first?.weather.first?.icon ?? "star" // 아이콘은 그냥 첫 번째거 가져오기!! 없으면? 그냥 star 로
-            // 아까 생성한 빈 배열에 새 객체(데이터) 추가
-            dailyForecastsResult.append(DailyForecast(date: date, temp_min: averageTempMin, temp_max: averageTempMax, icon: weatherIcon))
+        var dailyForecastsResult = [DailyForecast]() // dailyForecastsResult을 초기화 (DailyForecast는 계산한 값이 들어갈 공간
+        let sortedDates = dailyForecasts.keys.sorted() // 딕셔너리는 날짜가 순서대로 안 돼서 추가 함. 키(날짜 String)을 정렬
+        for date in sortedDates {
+            if let forecasts = dailyForecasts[date] { // 해당 날짜에 해당하는 값을 forecasts 할당
+                //  forecast(값) 객체의 main.temp.. 값을 가져와 배열로 만들고, 배열의 모든 값을 더한 후 나누어 평균 값 구하기
+                let averageTempMin = forecasts.map { $0.main.temp_min }.reduce(0, +) / Double(forecasts.count)
+                let averageTempMax = forecasts.map { $0.main.temp_max }.reduce(0, +) / Double(forecasts.count)
+                let weatherIcon = forecasts.first?.weather.first?.icon ?? "star" // 아이콘은 그냥 첫 번째거 가져오기!! 없으면? 그냥 star 로
+                // 아까 생성한 빈 배열에 새 객체(데이터) 추가
+                dailyForecastsResult.append(DailyForecast(date: date, temp_min: averageTempMin, temp_max: averageTempMax, icon: weatherIcon))
+            }
         }
         return dailyForecastsResult
     }
-    
 }
