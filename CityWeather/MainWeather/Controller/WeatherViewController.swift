@@ -19,7 +19,6 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
     private let bgImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "하늘")
-        image.backgroundColor = .yellow
         return image
     }()
     
