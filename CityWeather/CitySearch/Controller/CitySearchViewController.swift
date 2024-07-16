@@ -36,7 +36,8 @@ class CitySearchViewController: BaseViewController {
     // MARK: - Method
     
     private func bindData() {
-        viewModel.outputFilteredCityListData.bind { _ in
+        viewModel.outputFilteredCityListData.bind { [weak self] _ in
+            guard let self = self else { return }
             self.tableView.reloadData()
         }
     }

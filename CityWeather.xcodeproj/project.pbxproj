@@ -134,7 +134,7 @@
 				B01B2E302C4122DC00B981FC /* Custom */,
 				B01B2E072C3EAC7500B981FC /* Extension */,
 				B01B2E2D2C411A6600B981FC /* Enum */,
-				B01B2E7D2C453EC200B981FC /* LifeCycle */,
+				B01B2E7D2C453EC200B981FC /* App */,
 				B01B2E7E2C453EFE00B981FC /* API */,
 				B01B2DF12C3E6C6100B981FC /* LaunchScreen.storyboard */,
 				B01B2DEF2C3E6C6100B981FC /* Assets.xcassets */,
@@ -294,13 +294,13 @@
 			path = DepthCell;
 			sourceTree = "<group>";
 		};
-		B01B2E7D2C453EC200B981FC /* LifeCycle */ = {
+		B01B2E7D2C453EC200B981FC /* App */ = {
 			isa = PBXGroup;
 			children = (
 				B01B2DE82C3E6C5F00B981FC /* SceneDelegate.swift */,
 				B01B2DE62C3E6C5F00B981FC /* AppDelegate.swift */,
 			);
-			path = LifeCycle;
+			path = App;
 			sourceTree = "<group>";
 		};
 		B01B2E7E2C453EFE00B981FC /* API */ = {

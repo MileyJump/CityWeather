@@ -39,7 +39,8 @@ final class MapViewController: BaseViewController {
     // MARK: - Method
     
     private func bindData() {
-        viewModel.outputLocationData.bind { value in
+        viewModel.outputLocationData.bind { [weak self] value in
+            guard let self = self else { return }
             guard let value = value else { return }
             self.configureMapLocation(data: value)
         }

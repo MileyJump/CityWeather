@@ -18,13 +18,18 @@ final class WeatherViewModel {
     
     
     init() {
+        print("WeatherViewModel, init============================")
         // 초기화 시 API 요청
         weatherRequest()
     }
     
+    deinit {
+        print("WeatherViewModel, Deinit============================")
+    }
+    
     // inputWeatherData가 변경되면 API 요청
     private func weatherRequest() {
-        inputWeatherData.bind { [weak self]data in
+        inputWeatherData.bind { [weak self] data in
             guard let self = self else { return }
             guard let data = data else { return }
             let id = data.0
@@ -32,7 +37,8 @@ final class WeatherViewModel {
             let lon = data.2
             
             // API 요청 후 필터링된 데이터를 저장하도록 수정
-            self.callRequest(api: WeatherRequest.forecast(lat: lat, lon: lon), weatherType: WeatherForecastModel.self) { forecast in
+            self.callRequest(api: WeatherRequest.forecast(lat: lat, lon: lon), weatherType: WeatherForecastModel.self) { [weak self] forecast in
+                guard let self = self else { return }
                 if let forecast = forecast {
                     self.outputForecastData.value = forecast.list
                     // 필터링된 일별 날씨 데이터를 추출하여 outputForecastData에 저장
@@ -41,7 +47,8 @@ final class WeatherViewModel {
                 }
             }
             // 현재 날씨 데이터를 요청하고 outputCurrentData에 저장
-            self.callRequest(api: WeatherRequest.current(id: id), weatherType: CurrentWeatherModel.self) { current in
+            self.callRequest(api: WeatherRequest.current(id: id), weatherType: CurrentWeatherModel.self) { [weak self] current in
+                guard let self = self else { return }
                 if let current = current {
                     self.outputCurrentData.value = current
                 }

@@ -14,8 +14,13 @@ final class MapViewModel {
     var outputLocationData: Observable<CurrentWeatherModel?> = Observable(nil)
     
     init() { 
+        print("MapViewModel========init")
         bindData()
     }
+    deinit {
+        print("MapViewModel========Deinit")
+    }
+    
     
     private func bindData() {
         inputLocationData.bind { [weak self] value in

@@ -14,7 +14,11 @@ final class DailyIntervalViewModel {
     var outputForecastListData: Observable<[DailyForecast]> = Observable([])
     
     init() {
+        print("DailyIntervalViewModel========init")
         bindData()
+    }
+    deinit {
+        print("DailyIntervalViewModel========Deinit")
     }
     
     private func bindData() {

@@ -23,3 +23,5 @@ struct TemperatureCelsius {
         self.temp_max = TemperatureConverter.kelvinToCelsiusString(kelvin: temp_max)
     }
 }
+
+

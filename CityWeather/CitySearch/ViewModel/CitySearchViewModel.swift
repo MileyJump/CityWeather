@@ -15,9 +15,15 @@ final class CitySearchViewModel {
     var outputFilteredCityListData: Observable<[CityListModel]> = Observable([])
     
     init() {
-        inputCityListData.bind { _ in
+        print("CitySearchViewModel====init")
+        inputCityListData.bind { [weak self] _ in
+            guard let self = self else { return }
             self.parseCitiesJSON()
         }
+    }
+    
+    deinit {
+        print("CitySearchViewModel====Deinit")
     }
     
     

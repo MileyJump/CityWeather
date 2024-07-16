@@ -35,6 +35,11 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
         setupNavigationBar()
     }
     
+    
+    deinit {
+        print("WeatherViewController=========deinit=====================")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -64,11 +69,13 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
     private func bindData(id: Int, lat: Double, lon: Double) {
         viewModel.inputWeatherData.value = (id, lat, lon)
 
-        viewModel.outputCurrentData.bind { _ in
+        viewModel.outputCurrentData.bind { [weak self] _ in
+            guard let self = self else { return }
             self.weatherTableView.reloadData()
         }
         
-        viewModel.outputDailyForecastData.bind { value in
+        viewModel.outputDailyForecastData.bind { [weak self] value in
+            guard let self = self else { return }
             guard let cell = self.weatherTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? WeatherTableViewCell else { return }
             cell.collectionView.reloadData()
         }
@@ -134,6 +141,7 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
 // MARK: - TableView Delegate, DataSource
 
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return SectionType.allCases.count
     }
