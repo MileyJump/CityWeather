@@ -46,9 +46,7 @@ enum SectionType: CaseIterable {
 }
 
 
-
-
-
+// 마지막 셀, 컬렉션뷰셀 헤더 타이틀
 enum collectionHeaderType:String, CaseIterable {
     case wind
     case cloud

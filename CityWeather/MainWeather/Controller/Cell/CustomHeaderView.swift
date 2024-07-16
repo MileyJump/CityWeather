@@ -9,6 +9,8 @@ import UIKit
 
 final class CustomHeaderView: BaseTableViewCell {
     
+    // MARK: - Properties
+    
     private let currentLocationLabel = {
         let label = UILabel()
         label.text = "Jeju City"
@@ -37,6 +39,8 @@ final class CustomHeaderView: BaseTableViewCell {
         return label
     }()
     
+    // MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
@@ -45,6 +49,8 @@ final class CustomHeaderView: BaseTableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - UI
     
     func configureCell(_ data: CurrentWeatherModel) {
         currentLocationLabel.text = data.name

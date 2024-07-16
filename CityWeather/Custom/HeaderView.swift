@@ -11,6 +11,8 @@ import SnapKit
 
 final class HeaderView: BaseView {
     
+    // MARK: - Properties
+    
     let iconImageViwe = UIImageView()
     let titleLabel = UILabel()
     
@@ -18,6 +20,8 @@ final class HeaderView: BaseView {
         super.init(frame: frame)
        
     }
+    
+    // MARK: - UI
     
     func configureHeader(type: SectionType) {
         titleLabel.text = type.sectionTitle

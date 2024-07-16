@@ -9,6 +9,8 @@ import UIKit
 
 class CitySearchTableViewCell: BaseTableViewCell {
     
+    // MARK: - Properties
+    
     let hashtagLabel = {
         let label = UILabel()
         label.text = "#"
@@ -33,9 +35,14 @@ class CitySearchTableViewCell: BaseTableViewCell {
         label.font = .systemFont(ofSize: 15)
         return label
     }()
+    
+    // MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
+    
+    // MARK: - UI구성
     
     func configureCell(_ data: CityListModel) {
         nameLabel.text = data.name
@@ -66,5 +73,4 @@ class CitySearchTableViewCell: BaseTableViewCell {
             make.bottom.equalToSuperview().offset(-10)
         }
     }
-    
 }

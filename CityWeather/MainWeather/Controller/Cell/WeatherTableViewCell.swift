@@ -9,6 +9,8 @@ import UIKit
 
 final class WeatherTableViewCell: BaseTableViewCell {
     
+    // MARK: - Properties
+    
     private let bgView = {
         let view = UIView()
         view.backgroundColor = .black.withAlphaComponent(0.2)
@@ -37,11 +39,15 @@ final class WeatherTableViewCell: BaseTableViewCell {
         layout.scrollDirection = .horizontal
         return layout
     }
+    
+    // MARK: - init
 
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
+    
+    // MARK: - Properties
     
     override func configureHierarchy() {
         contentView.addSubview(bgView)

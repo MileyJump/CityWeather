@@ -9,6 +9,8 @@ import UIKit
 
 final class DailyIntervalTableViewCell: BaseTableViewCell {
     
+    // MARK: - Properties
+    
     var viewModel = DailyIntervalViewModel()
     
     private let bgView = {
@@ -19,18 +21,25 @@ final class DailyIntervalTableViewCell: BaseTableViewCell {
     }()
     
     let headerView = HeaderView()
+    
     private let dailyTableView = UITableView()
+    
+    // MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         bind()
     }
     
+    // MARK: - Method
+    
     private func bind() {
         viewModel.outputForecastListData.bind { _ in
             self.dailyTableView.reloadData()
         }
     }
+    
+    // MARK: - UI
     
     override func configureHierarchy() {
         contentView.addSubview(bgView)
@@ -66,6 +75,8 @@ final class DailyIntervalTableViewCell: BaseTableViewCell {
         backgroundColor = .clear
     }
 }
+
+// MARK: - TableView Delegate, DataSource
 
 extension DailyIntervalTableViewCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

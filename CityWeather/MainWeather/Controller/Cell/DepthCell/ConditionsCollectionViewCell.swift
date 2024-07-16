@@ -9,6 +9,8 @@ import UIKit
 
 final class ConditionsCollectionViewCell: BaseCollectionViewCell {
     
+    // MARK: - Properties
+    
     private let bgView = {
         let view = UIView()
         view.backgroundColor = .black.withAlphaComponent(0.2)
@@ -42,9 +44,13 @@ final class ConditionsCollectionViewCell: BaseCollectionViewCell {
         return label
     }()
     
+    // MARK: - init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
+    
+    // MARK: - UI
     
     override func configureHierarchy() {
         contentView.addSubview(bgView)

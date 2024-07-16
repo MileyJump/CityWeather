@@ -26,13 +26,6 @@ struct ForecastList: Decodable {
     let rain: Rain?
     let sys: Sys?
     let dt_txt: String
-    
-//    var temperatureCelsius: TemperatureCelsiusForecast {
-//        return TemperatureCelsiusForecast(main: main)
-//    }
-    
-    
-    
 }
 
 struct Main: Decodable {
@@ -103,18 +96,7 @@ struct Coord: Decodable {
 }
 
 
-// 섭씨 온도로 변환
-//struct TemperatureCelsiusForecast {
-//    var temp, temp_min, temp_max: String
-//    
-//    init(main: Main) {
-//        self.temp = String(format: "%.1f", main.temp - 273.15) + "°"
-//        self.temp_min = String(format: "%.1f", main.temp - 273.15) + "°"
-//        self.temp_max = String(format: "%.1f", main.temp - 273.15) + "°"
-//    }
-//}
-
-
+// 일일 예측 모델 (각 날짜별로 평균값이 들어감)
 struct DailyForecast {
     let date: String
     let temp_min: Double

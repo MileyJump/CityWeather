@@ -46,6 +46,8 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
+    // MARK: - Setup AddTarget
+    
     @objc private func mapButtonTapped() {
         let vc = MapViewController()
         vc.viewModel.inputLocationData.value = viewModel.outputCurrentData.value
@@ -57,6 +59,8 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    // MARK: - Method
     
     private func bindData(id: Int, lat: Double, lon: Double) {
         viewModel.inputWeatherData.value = (id, lat, lon)
@@ -70,6 +74,8 @@ final class WeatherViewController: BaseViewController, WeatherIdDelegate {
             cell.collectionView.reloadData()
         }
     }
+    
+    // MARK: - Delegate Method
     
     func idUpdateDelegate(id: Int, lat: Double, lon: Double) {
         print(#function)

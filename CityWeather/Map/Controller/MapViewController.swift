@@ -11,14 +11,20 @@ import SnapKit
 
 final class MapViewController: BaseViewController {
     
+    // MARK: - Properties
+    
     let viewModel = MapViewModel()
     
     private let mapView = MKMapView()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bindData()
     }
+    
+    // MARK: - UI
     
     override func configureHierarchy() {
         view.addSubview(mapView)
@@ -29,6 +35,8 @@ final class MapViewController: BaseViewController {
             make.edges.equalTo(view)
         }
     }
+    
+    // MARK: - Method
     
     private func bindData() {
         viewModel.outputLocationData.bind { value in

@@ -10,10 +10,14 @@ import SnapKit
 
 class CitySearchViewController: BaseViewController {
     
+    // MARK: - Properties
+    
     private let searchBar = UISearchBar()
     private let tableView = UITableView()
     private let viewModel = CitySearchViewModel()
     var delegate: WeatherIdDelegate?
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +33,21 @@ class CitySearchViewController: BaseViewController {
         navigationController?.isToolbarHidden = false
     }
     
+    // MARK: - Method
+    
     private func bindData() {
         viewModel.outputFilteredCityListData.bind { _ in
             self.tableView.reloadData()
         }
     }
+    
+    // MARK: - Setup AddTarget
+    
+    @objc private func ellipsisButtonTapped() {
+        print(#function)
+    }
+    
+    // MARK: - UI
     
     private func setupNavigationBar() {
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -46,10 +60,7 @@ class CitySearchViewController: BaseViewController {
         let ellipsisButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(ellipsisButtonTapped))
         navigationItem.rightBarButtonItem = ellipsisButton
     }
-    
-    @objc private func ellipsisButtonTapped() {
-        print(#function)
-    }
+   
     
     override func configureHierarchy() {
         view.addSubview(tableView)
@@ -66,6 +77,8 @@ class CitySearchViewController: BaseViewController {
     }
     
     override func configureView() {
+        view.backgroundColor = .black
+        
         searchBar.placeholder = "Search for a city"
         searchBar.backgroundImage = UIImage()
         searchBar.delegate = self
@@ -83,6 +96,8 @@ class CitySearchViewController: BaseViewController {
         tableView.separatorStyle = .none
     }
 }
+
+// MARK: - TableView Delegate, DataSource
 
 extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -105,6 +120,8 @@ extension CitySearchViewController: UITableViewDelegate, UITableViewDataSource {
         navigationController?.popViewController(animated: true)
     }
 }
+
+// MARK: - SearchBar Delegate
 
 extension CitySearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

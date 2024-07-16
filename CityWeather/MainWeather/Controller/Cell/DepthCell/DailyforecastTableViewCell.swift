@@ -11,6 +11,8 @@ import SnapKit
 
 final class DailyforecastTableViewCell: BaseTableViewCell {
     
+    // MARK: - Properties
+    
     private let dayLabel = UILabel()
     
     private let iconImageView = UIImageView()
@@ -18,24 +20,13 @@ final class DailyforecastTableViewCell: BaseTableViewCell {
     private let minimum = UILabel()
     private let maximum = UILabel()
     
+    // MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    override func configureHierarchy() {
-        contentView.addSubview(dayLabel)
-        contentView.addSubview(iconImageView)
-        contentView.addSubview(minimum)
-        contentView.addSubview(maximum)
-    }
-    
-    func configureCell(data: DailyForecast) {
-        print(data.date)
-        dayLabel.text = dayConversion(data.date)
-        iconImageView.kf.setImage(with: data.iconExtraction)
-        minimum.text = "최저 \(data.tempMinCelsius)"
-        maximum.text = "최고 \(data.tempMaxCelsius)"
-    }
+    // MARK: - Method
     
     private func dayConversion(_ dateString: String) -> String {
         let dateFormat = DateFormatter()
@@ -50,6 +41,23 @@ final class DailyforecastTableViewCell: BaseTableViewCell {
         }else {
             return "날짜 변환 실패"
         }
+    }
+    
+    // MARK: - UI
+    
+    override func configureHierarchy() {
+        contentView.addSubview(dayLabel)
+        contentView.addSubview(iconImageView)
+        contentView.addSubview(minimum)
+        contentView.addSubview(maximum)
+    }
+    
+    func configureCell(data: DailyForecast) {
+        print(data.date)
+        dayLabel.text = dayConversion(data.date)
+        iconImageView.kf.setImage(with: data.iconExtraction)
+        minimum.text = "최저 \(data.tempMinCelsius)"
+        maximum.text = "최고 \(data.tempMaxCelsius)"
     }
     
     override func configureView() {
@@ -77,5 +85,4 @@ final class DailyforecastTableViewCell: BaseTableViewCell {
             make.trailing.equalTo(contentView).inset(5)
         }
     }
-    
 }

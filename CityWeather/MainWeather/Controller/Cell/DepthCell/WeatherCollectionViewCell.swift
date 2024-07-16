@@ -11,6 +11,8 @@ import Kingfisher
 
 final class WeatherCollectionViewCell: BaseCollectionViewCell {
     
+    // MARK: - Properties
+    
     private let timeLabel = UILabel()
     private let weatherImageView = UIImageView()
     private let tempLabel = UILabel()
@@ -19,24 +21,13 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
         super.init(frame: frame)
     }
     
+    // MARK: - UI
+    
     func configureCell(data: ForecastList) {
         timeLabel.text = timeConversion(data.dt_txt)
         weatherImageView.kf.setImage(with: data.weather[0].iconExtraction)
         tempLabel.text = "\(data.main.temperatureCelsius.temp)"
         
-    }
-    
-    private func timeConversion(_ dateString: String) -> String {
-        let dateFormat = DateFormatter()
-        dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        if let date = dateFormat.date(from: dateString) {
-            let calendar = Calendar.current
-            let hour = calendar.component(.hour, from: date)
-            return String(hour) + "시"
-        }else {
-            return "날짜 변환 실패"
-        }
     }
     
     override func configureHierarchy() {
@@ -61,7 +52,6 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
             make.top.horizontalEdges.equalToSuperview()
         }
         
-
         weatherImageView.snp.makeConstraints { make in
             make.top.equalTo(timeLabel.snp.bottom).offset(10)
             make.height.equalTo(60)
@@ -71,6 +61,21 @@ final class WeatherCollectionViewCell: BaseCollectionViewCell {
         tempLabel.snp.makeConstraints { make in
             make.top.equalTo(weatherImageView.snp.bottom).offset(10)
             make.bottom.horizontalEdges.equalToSuperview()
+        }
+    }
+    
+    // MARK: - Method
+    
+    private func timeConversion(_ dateString: String) -> String {
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if let date = dateFormat.date(from: dateString) {
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date)
+            return String(hour) + "시"
+        }else {
+            return "날짜 변환 실패"
         }
     }
 }

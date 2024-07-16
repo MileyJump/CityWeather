@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 struct CurrentWeatherModel: Decodable {
     let coord: CurrentCoord
     let weather: [CurrentWeather]

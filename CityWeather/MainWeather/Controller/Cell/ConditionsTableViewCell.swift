@@ -9,6 +9,8 @@ import UIKit
 
 final class ConditionsTableViewCell: BaseTableViewCell {
     
+    // MARK: - Properties
+    
     let viewModel = ConditionViewModel()
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
@@ -30,10 +32,14 @@ final class ConditionsTableViewCell: BaseTableViewCell {
         return layout
     }
     
+    // MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         bind()
     }
+    
+    // MARK: - Method
     
     private func bind() {
         viewModel.outputWeatherData.bind { weather in
@@ -41,6 +47,8 @@ final class ConditionsTableViewCell: BaseTableViewCell {
             
         }
     }
+    
+    // MARK: - UI 구성
     
     override func configureHierarchy() {
         contentView.addSubview(collectionView)
@@ -59,8 +67,9 @@ final class ConditionsTableViewCell: BaseTableViewCell {
         collectionView.backgroundColor = .clear
         backgroundColor = .clear
     }
-    
 }
+
+// MARK: - CollectionView Delegate, DataSource
 
 extension ConditionsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -11,6 +11,8 @@ import SnapKit
 
 final class MapTableViewCell: BaseTableViewCell {
     
+    // MARK: - Properties
+    
     private let bgView = {
         let view = UIView()
         view.backgroundColor = .black.withAlphaComponent(0.2)
@@ -23,10 +25,13 @@ final class MapTableViewCell: BaseTableViewCell {
     private let mapView = MKMapView()
     private var coordinates: CLLocationCoordinate2D?
     
+    // MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
+    // MARK: - UI 구성
     
     override func configureHierarchy() {
         contentView.addSubview(bgView)
@@ -53,6 +58,8 @@ final class MapTableViewCell: BaseTableViewCell {
     override func configureView() {
         backgroundColor = .clear
     }
+    
+    // MARK: - Method
     
     func configureMapLocation(data: CurrentWeatherModel) {
         // 기본 위치 설정 (예: 서울 좌표)

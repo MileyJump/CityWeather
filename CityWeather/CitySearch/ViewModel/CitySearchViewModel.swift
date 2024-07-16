@@ -21,7 +21,6 @@ final class CitySearchViewModel {
     }
     
     
-    // 아 그냥 모델로 뺄까 ..?
     private func parseCitiesJSON() {
         // Bundle.main을 사용하여 JSON 파일의 경로를 가져오기
         guard let jsonFilePath = Bundle.main.path(forResource: "CityList", ofType: "json") else {
@@ -56,7 +55,7 @@ final class CitySearchViewModel {
             // 필터!! 이름이랑 국가를 소문자로(lowercased) 변환하여 포함 여부 찾기 -> 대소문자 구분 없애기
             return city.name.lowercased().contains(searchText.lowercased()) || city.country.lowercased().contains(searchText.lowercased())
         }
-        // 필터 다 됐어? ㅇㅋㅇㅋ 담아버려
+        // 필터 다 됐어? 담아버려
         outputFilteredCityListData.value = filteredCities
     }
 }

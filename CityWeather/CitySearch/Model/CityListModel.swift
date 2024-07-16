@@ -19,4 +19,3 @@ struct CityCoord: Codable {
     let lon: Double
     let lat: Double
 }
-
